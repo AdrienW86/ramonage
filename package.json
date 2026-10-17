@@ -1,0 +1,51 @@
+{
+  "name": "ramonage-premium",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "tsx scripts/check-config.ts && next build",
+    "build:preview": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "import:communes": "node scripts/import-communes.mjs",
+    "check:config": "tsx scripts/check-config.ts",
+    "report": "tsx scripts/report.ts"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
+    "lucide-react": "^0.468.0",
+    "motion": "^12.23.0",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.65.0",
+    "resend": "^6.0.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.0",
+    "@next/env": "^16.4.2",
+    "@playwright/test": "^1.56.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "chrome-launcher": "^1.2.2",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
+    "lighthouse": "^12.8.2",
+    "prettier": "^3.9.10",
+    "sharp": "^0.34.0",
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  }
+}

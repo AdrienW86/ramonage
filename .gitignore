@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/test-results/
+/playwright-report/
+/artifacts/
+/image-sources.local.json
+/public/images/*-source.png

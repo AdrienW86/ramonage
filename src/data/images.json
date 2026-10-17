@@ -1,0 +1,122 @@
+[
+  {
+    "id": "hero",
+    "file": "/images/hero.webp",
+    "width": 1672,
+    "height": 941,
+    "bytes": 136144,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "cheminee",
+    "file": "/images/cheminee.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 131654,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "poele-bois",
+    "file": "/images/poele-bois.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 148802,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "poele-granules",
+    "file": "/images/poele-granules.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 88266,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "insert",
+    "file": "/images/insert.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 156758,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "conduit",
+    "file": "/images/conduit.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 96062,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "chaudiere",
+    "file": "/images/chaudiere.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 78220,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "bistre",
+    "file": "/images/bistre.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 99364,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "debistrage",
+    "file": "/images/debistrage.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 114738,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "inspection",
+    "file": "/images/inspection.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 127448,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "outillage",
+    "file": "/images/outillage.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 189950,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  },
+  {
+    "id": "local",
+    "file": "/images/local.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 234350,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
+  }
+]

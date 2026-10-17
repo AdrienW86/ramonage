@@ -1,0 +1,10 @@
+{
+  "source": "https://geo.api.gouv.fr/decoupage-administratif/communes",
+  "importedAt": "2026-10-17T13:00:16.051Z",
+  "counts": {
+    "11": 433,
+    "66": 226
+  },
+  "retiredInsee": [],
+  "note": "Données géographiques officielles ; ne constituent pas une confirmation de desserte."
+}

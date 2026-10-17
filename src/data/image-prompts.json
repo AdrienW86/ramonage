@@ -1,0 +1,62 @@
+[
+  {
+    "id": "hero",
+    "file": "/images/hero.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: wide 16:9 editorial website hero photograph, output landscape. Primary request: an elegant contemporary fireplace in an understated Mediterranean French home. A large glass enclosed fireplace with a small realistic wood fire on the RIGHT half, textured dark charcoal plaster wall, pale limestone hearth, neatly stacked split logs, glimpse of warm off-white living room. Cinematic warm firelight against cool mineral walls, rich dark textures, architectural magazine photography, premium believable craftsmanship. Composition: panoramic, substantial dark quiet negative space on LEFT for white website typography, fireplace right, eye level, 35mm lens. Copper, deep charcoal and warm ivory palette. No people, no writing, no logo, no certification, no watermark. Illustrative conceptual interior, not a claimed actual job. Save image locally and return file path if supported."
+  },
+  {
+    "id": "cheminee",
+    "file": "/images/cheminee.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a traditional limestone open fireplace, unlit, clean fireplace opening with a chimney sweeping brush on the protected hearth. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "poele-bois",
+    "file": "/images/poele-bois.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a closed black cast iron wood burning stove with a straight metal flue and a small controlled fire behind the glass, limestone living room. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "poele-granules",
+    "file": "/images/poele-granules.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a modern closed black pellet stove, realistic small flame behind the viewing glass, warm quiet neutral interior. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "insert",
+    "file": "/images/insert.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a closed glass fireplace insert flush mounted into a pale stone wall, small controlled fire, elegant home. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "conduit",
+    "file": "/images/conduit.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a realistic clean stainless steel flue section on a professional workshop workbench, soft directional light, no human. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "chaudiere",
+    "file": "/images/chaudiere.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a realistic residential biomass boiler in a tidy utility room with correctly connected flue pipe, no visible branding. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "bistre",
+    "file": "/images/bistre.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a technical macro photograph of the interior surface of an unlit flue showing a small realistic glossy tar-like black creosote deposit, accurate soot texture. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "debistrage",
+    "file": "/images/debistrage.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: professional rotary chimney cleaning rods and appropriate chain head laid out on protected clean workbench, no machine in operation, no humans. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "inspection",
+    "file": "/images/inspection.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: professional chimney inspection camera with cable and dark blank screen resting beside a flue section on workbench, no people. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "outillage",
+    "file": "/images/outillage.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: a still life of professional chimney sweeping brushes, flexible rods, protective cloth and industrial vacuum in a mineral workshop, arranged carefully. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "local",
+    "file": "/images/local.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: sunlit Mediterranean southern French limestone village rooftops with terracotta tiles and modest traditional chimneys, no identifiable famous landmark, natural muted earthy palette. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  }
+]
