@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { RelatedResources } from '@/components/related-resources';
 import { notFound, redirect } from 'next/navigation';
 import { Breadcrumbs, CTA, Faq, JsonLd, Photo } from '@/components/ui';
 import { services, visibleServices, serviceConfirmed } from '@/content/services';
@@ -69,13 +70,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             </p>
             <h2>Vos questions</h2>
             <Faq items={s.faq} />
-            <h2>Pour aller plus loin</h2>
-            <p>
-              <Link href="/conseils/obligations-et-frequence">
-                Les obligations et la fréquence d’entretien
-              </Link>{' '}
-              · <Link href="/conseils/comprendre-le-bistre">Comprendre le bistre</Link>
-            </p>
+            <RelatedResources service={s.slug} />
           </article>
           <aside className="aside-card">
             <p className="eyebrow">VOTRE PROJET</p>

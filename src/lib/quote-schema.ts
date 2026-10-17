@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { safeArticleSlug } from './article-attribution';
 export const quoteSchema = z.object({
   name: z.string().trim().min(2, 'Indiquez votre nom (2 caractères minimum).').max(100),
   phone: z
@@ -18,5 +19,12 @@ export const quoteSchema = z.object({
   website: z.string().max(200),
   startedAt: z.number(),
   requestId: z.uuid(),
+  sourceArticle: z
+    .string()
+    .optional()
+    .refine(
+      (v) => v === undefined || v === '' || !!safeArticleSlug(v),
+      'Référence d’article inconnue.',
+    ),
 });
 export type QuoteInput = z.infer<typeof quoteSchema>;

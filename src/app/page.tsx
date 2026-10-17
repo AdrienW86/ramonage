@@ -13,7 +13,7 @@ import { CommuneSearch } from '@/components/commune-search';
 import { CTA, Faq, Photo, SectionHeading, ServiceCard } from '@/components/ui';
 import { Reveal } from '@/components/reveal';
 import { visibleServices } from '@/content/services';
-import { guides } from '@/content/guides';
+import { visibleGuides } from '@/lib/editorial';
 import { metadata } from '@/lib/seo';
 export const generateMetadata = () =>
   metadata(
@@ -208,15 +208,18 @@ export default function Home() {
           </Link>
         </div>
         <div className="guide-grid">
-          {guides.slice(0, 3).map((g) => (
-            <Link className="guide-card" href={`/conseils/${g.slug}`} key={g.slug}>
-              <Photo name={g.image} alt={`${g.category} — illustration générée par IA`} />
-              <p className="eyebrow">{g.category}</p>
-              <h3>
-                {g.title} <ArrowUpRight size={20} />
-              </h3>
-            </Link>
-          ))}
+          {visibleGuides()
+            .filter((g) => g.featured)
+            .slice(0, 3)
+            .map((g) => (
+              <Link className="guide-card" href={`/conseils/${g.slug}`} key={g.slug}>
+                <Photo name={g.image} alt={`${g.category} — illustration générée par IA`} />
+                <p className="eyebrow">{g.category}</p>
+                <h3>
+                  {g.title} <ArrowUpRight size={20} />
+                </h3>
+              </Link>
+            ))}
         </div>
       </section>
       <section className="faq-section section container">

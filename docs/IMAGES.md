@@ -19,6 +19,8 @@ Les prompts complets et exacts sont versionnés dans `src/data/image-prompts.jso
 | outillage.webp             | 1200 × 800 | 185 Ko             | Approche et préparation            |
 | local.webp                 | 1200 × 800 | 229 Ko             | Territoires et pages locales       |
 
+Phase 2 : un treizième visuel, `bois-stockage.webp`, a été généré avec l’outil intégré et importé dans `public/images/` (1200 × 800, 248 000 octets). Il illustre un rangement de bûches surélevé et ventilé ; il ne mesure pas l’humidité et ne représente pas un chantier réel. Le prompt exact figure dans `src/data/image-prompts.json`. Les douze images initiales sont conservées. Un tableau HTML accessible explique les périmètres ramonage/entretien/inspection ; aucune coupe de conduit techniquement non validée n’a été créée.
+
 Pas de visuel manquant dans cette bibliothèque. Le visuel local représente une ambiance méditerranéenne imaginaire, pas une commune précisément identifiée. Aucun logo commercial final n’est créé ; le pictogramme de flamme accompagne le nom provisoire et le logo réel peut le remplacer dans `company.logo`.
 
 `next/image` fournit les tailles responsives et formats WebP/AVIF ; seuls les visuels LCP sont préchargés. Les blocs réservent leur espace pour éviter le CLS. Les autres images utilisent le chargement différé.

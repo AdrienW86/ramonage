@@ -36,9 +36,11 @@ export default function Page() {
           n’autorise pas de prospection commerciale.
         </p>
         <p>
-          Ne transmettez pas de données sensibles dans le message. Les informations obligatoires
-          sont signalées. Aucune demande ne peut être envoyée tant que le formulaire n’est pas
-          configuré.
+          Si vous arrivez depuis un guide, sa référence peut accompagner votre demande et figurer
+          dans l’email transmis à l’entreprise pour comprendre le contexte. Aucun terme de recherche
+          ni identifiant personnel de suivi n’est ajouté à cette référence. Ne transmettez pas de
+          données sensibles dans le message. Les informations obligatoires sont signalées. Aucune
+          demande ne peut être envoyée tant que le formulaire n’est pas configuré.
         </p>
         <h2>Destinataires et sous-traitants</h2>
         <p>

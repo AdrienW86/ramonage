@@ -58,5 +58,10 @@
     "id": "local",
     "file": "/images/local.webp",
     "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial website photograph. Subject: sunlit Mediterranean southern French limestone village rooftops with terracotta tiles and modest traditional chimneys, no identifiable famous landmark, natural muted earthy palette. Coherent premium architectural and craft photography series, realistic French home or workshop, charcoal #171A1C, copper #B77B48 and ivory #F5F1EA palette, natural light, credible technical details, subtle film grain. No people, no text, no logos, no watermark, no certification, no unsafe activity. An illustrative AI image, not an actual company job. Return local file path."
+  },
+  {
+    "id": "bois-stockage",
+    "file": "/images/bois-stockage.webp",
+    "prompt": "Use case: photorealistic-natural. Asset type: landscape 3:2 editorial educational illustration for a French chimney maintenance resource centre. Primary request: split untreated firewood stacked neatly on raised slatted supports under a simple covered open-sided outdoor shelter, showing a clear air gap underneath and plenty of ventilation, no plastic wrap enclosing the logs. Mediterranean stone wall and muted garden in background, no identifiable address. Natural warm daylight, premium credible craft photography, charcoal, copper and warm ivory color palette consistent with an elegant fireplace website, realistic fine textures. No people, no text, no logos, no watermark. This is a conceptual AI illustration, not a genuine company job or measurement of wood moisture. Return a local file path."
   }
 ]

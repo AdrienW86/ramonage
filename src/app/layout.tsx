@@ -53,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/prestations">Les prestations</Link>
               <Link href="/a-propos">Notre approche</Link>
               <Link href="/conseils">Conseils & guides</Link>
+              <Link href="/questions-frequentes">Questions fréquentes</Link>
               <Link href="/contact">Contact</Link>
             </div>
             <div>

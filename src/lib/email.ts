@@ -13,6 +13,7 @@ export function quoteEmail(q: QuoteInput) {
     ['Installation', q.installation],
     ['Prestation', q.service],
     ['Message', q.message || '—'],
+    ...(q.sourceArticle ? [['Guide à l’origine de la demande', q.sourceArticle]] : []),
   ];
   return {
     subject: 'Nouvelle demande de devis — site web',

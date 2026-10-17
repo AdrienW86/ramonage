@@ -1861,3 +1861,251 @@ footer {
 .interior-hero p.notice {
   color: #56422f;
 }
+/* Phase 2 : compléments éditoriaux, identité visuelle existante conservée. */
+.resource-section {
+  padding: 45px 0 60px;
+}
+.resource-section > h2 {
+  margin-bottom: 30px;
+}
+.resource-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 25px 0 15px;
+}
+.resource-categories a {
+  border: 1px solid #c4b7a8;
+  padding: 9px 14px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.resource-categories a:hover,
+.resource-categories a[aria-current='page'] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.resource-search {
+  padding: 25px;
+  background: #eae5dc;
+  margin-bottom: 30px;
+}
+.resource-search > div:first-child {
+  flex: 1;
+  min-width: 220px;
+}
+.resource-search-input {
+  position: relative;
+}
+.resource-search-input svg {
+  position: absolute;
+  left: 13px;
+  top: 16px;
+  color: #765033;
+}
+.resource-search-input input {
+  width: 100%;
+  padding-left: 42px;
+}
+.resource-search select {
+  max-width: 100%;
+  width: 285px;
+}
+.resource-description {
+  font-size: 12px;
+  color: #565952;
+  line-height: 1.8;
+  margin-top: 17px;
+}
+.resource-status {
+  display: block;
+  font-size: 10px;
+  color: #705237;
+  margin-top: 12px;
+}
+.resource-related {
+  display: flex;
+  gap: 20px 30px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  padding: 35px 0 60px;
+  font-size: 12px;
+}
+.resource-related h2 {
+  font-size: 29px;
+  flex-basis: 100%;
+  margin-bottom: 10px;
+}
+.resource-related > a {
+  border-bottom: 1px solid #bba48d;
+}
+.resource-related-grid {
+  margin-top: 35px;
+}
+.article-meta {
+  display: flex;
+  gap: 14px 28px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: #50544e;
+  border-block: 1px solid var(--line);
+  padding: 20px 0;
+  margin-bottom: 25px;
+}
+.article-toc {
+  background: #eae5dc;
+  padding: 25px;
+  margin-bottom: 40px;
+  font-size: 12px;
+}
+.article-toc h2 {
+  font-size: 25px;
+  margin-bottom: 16px;
+}
+.article-toc > a {
+  display: block;
+  margin-top: 10px;
+}
+.article-toc ol {
+  margin: 0;
+}
+.section-sources {
+  margin-top: 13px;
+}
+.section-sources a {
+  font-size: 10px;
+  display: block;
+  color: #705237;
+}
+.practical-example {
+  background: #eae5dc;
+  padding: 25px;
+  margin-top: 40px;
+}
+.practical-example h2 {
+  font-size: 28px !important;
+  margin-top: 0 !important;
+}
+.practical-example .eyebrow {
+  font-size: 9px;
+}
+.prose .sources h2 {
+  font-size: 29px;
+}
+.sources li > span {
+  display: block;
+  font-size: 10px;
+  margin-top: 5px;
+}
+.sources li > p {
+  font-size: 11px;
+  margin-top: 5px;
+}
+.global-faq {
+  margin-top: 25px;
+}
+.faq-evidence {
+  font-size: 10px;
+  padding: 14px 35px 0 0;
+}
+.faq-evidence a {
+  display: block;
+  margin-top: 7px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.related-reading {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+}
+.related-reading h2 {
+  font-size: 29px !important;
+}
+.related-reading ul {
+  padding-left: 20px;
+}
+.related-reading li {
+  font-size: 12px;
+  margin: 12px 0;
+}
+.related-reading small {
+  color: #705237;
+}
+.comparison-wrap {
+  overflow-x: auto;
+  margin: 35px 0;
+}
+.comparison-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.comparison-wrap caption {
+  font-family: var(--serif);
+  font-size: 25px;
+  text-align: left;
+  margin-bottom: 16px;
+}
+.comparison-wrap th,
+.comparison-wrap td {
+  text-align: left;
+  padding: 14px;
+  border: 1px solid #c5bcae;
+  vertical-align: top;
+}
+.comparison-wrap thead {
+  background: #eae5dc;
+}
+.guide-grid .guide-card {
+  min-width: 0;
+}
+.guide-card .photo {
+  background: #303638;
+}
+@media (max-width: 700px) {
+  .resource-section {
+    padding: 30px 0 40px;
+  }
+  .resource-search {
+    padding: 20px;
+  }
+  .resource-search > div:first-child {
+    min-width: 0;
+  }
+  .resource-search select {
+    width: 100%;
+  }
+  .resource-categories {
+    gap: 8px;
+  }
+  .resource-categories a {
+    font-size: 10px;
+    padding: 8px 10px;
+  }
+  .article-meta {
+    display: block;
+    font-size: 10px;
+  }
+  .article-meta span {
+    display: block;
+    margin: 7px 0;
+  }
+  .article-toc {
+    padding: 20px;
+  }
+  .resource-description {
+    font-size: 12px;
+  }
+  .practical-example {
+    padding: 20px;
+  }
+  .resource-related {
+    gap: 16px;
+    padding-bottom: 40px;
+  }
+  .resource-section .guide-grid {
+    gap: 35px;
+  }
+}

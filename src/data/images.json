@@ -118,5 +118,15 @@
     "kind": "AI-generated illustration",
     "generator": "built-in image_gen",
     "verified": false
+  },
+  {
+    "id": "bois-stockage",
+    "file": "/images/bois-stockage.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 248000,
+    "kind": "AI-generated illustration",
+    "generator": "built-in image_gen",
+    "verified": false
   }
 ]

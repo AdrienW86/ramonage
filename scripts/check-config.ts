@@ -4,6 +4,8 @@ loadEnvConfig(process.cwd());
 const { configurationIssues, company } = await import('../src/config/company');
 const { services } = await import('../src/content/services');
 const issues = configurationIssues();
+const { editorialIssues } = await import('../src/lib/editorial');
+issues.push(...editorialIssues());
 for (const id of company.services)
   if (!services.some((s) => s.slug === id)) issues.push(`Prestation inconnue : ${id}`);
 if (company.commercial.formEnabled)

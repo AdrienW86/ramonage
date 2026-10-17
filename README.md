@@ -19,12 +19,12 @@ Pour une compilation optimisée locale : `npm run build:preview`, puis `npm run 
 
 - Next.js 16.4.2 résolu par le lockfile, App Router, React, TypeScript strict, Tailwind 4, ESLint, Motion et Lucide.
 - Direction éditoriale anthracite/cuivre/blanc cassé, responsive, navigation clavier, focus, mouvement réduit, FAQ et CTAs.
-- Accueil, prestations, deux départements, répertoire paginé, approche, contact, devis, quatre guides, mentions légales, confidentialité, 404 et gestion d’erreur.
+- Accueil, prestations, deux départements, répertoire paginé, approche, contact, devis, centre de ressources de 35 guides en sept catégories, FAQ de 56 questions, mentions légales, confidentialité, 404 et gestion d’erreur.
 - Huit prestations canoniques ; inserts/foyers fermés et débistrage/traitement du bistre mutualisés avec redirections permanentes.
 - **659 communes officielles : 433 dans l’Aude et 226 dans les Pyrénées-Orientales.** Source et date dans `src/data/geo-source.json`.
 - Recherche par nom/code postal, clavier, devis prérempli et carte de repérage calculée sur les centres officiels des communes.
 - Moteur éditorial local par INSEE : deux brouillons rédigés Perpignan/Narbonne et 657 entrées sans page rédigée. **0 commune publiée ; 659 statuts brouillon.**
-- Douze photographies générées via Imagegen, optimisées WebP dans `public/images/`, clairement signalées comme illustrations.
+- Douze photographies initiales conservées et un visuel complémentaire de stockage du bois : 13 images générées via Imagegen, optimisées WebP dans `public/images/`, clairement signalées comme illustrations.
 - Formulaire React Hook Form/Zod, validation serveur, honeypot, origine, taille réelle, cohérence commune/code postal, délai anti-bot, limitation Redis partagée et Resend avec idempotence.
 - Metadata, canonical, Open Graph, Twitter, breadcrumbs JSON-LD ; LocalBusiness et Service conditionnés aux données réelles ; sitemap et robots protégés.
 - Analytics et Speed Insights intégrés, désactivés par défaut, chargés après choix du visiteur. Aucune donnée saisie dans les événements ; query strings retirées des mesures.
@@ -63,6 +63,13 @@ Lighthouse : démarrer `npm run start -- -p 3100`, puis `node scripts/lighthouse
 - [Déploiement et variables](docs/DEPLOIEMENT.md)
 - [Bibliothèque d’images et prompts](docs/IMAGES.md)
 - [Résultats de validation](docs/VALIDATION.md)
+- [Système éditorial de phase 2](docs/EDITORIAL-PHASE-2.md)
+- [Recherche classique et moteurs IA](docs/SEO-IA.md)
+- [Bilan de phase 2](docs/PHASE-2-REPORT.md)
+
+La phase 2 conserve les quatre URL historiques et porte le catalogue total à **35 guides**. **27 synthèses sont vérifiées sur le plan documentaire**, 8 restent à compléter (6 sujets sur le bistre et 2 règlements locaux). Aucun auteur réel n’étant encore renseigné, **aucun guide n’est publié**. Le mode local permet de les examiner avec leur état explicite ; les sources inaccessibles et les limites sont indiquées. Voir `PROGRESS.md` et `npm run audit:editorial`.
+
+Les consultations et demandes issues des guides sont préparées via des références d’article autorisées, sans donnée personnelle dans les événements et avec le consentement de mesure existant. Aucun nouvel outil marketing tiers n’est installé.
 
 ## Sources
 

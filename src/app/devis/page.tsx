@@ -3,6 +3,7 @@ import { QuoteForm } from '@/components/quote-form';
 import { company, isPublicReady } from '@/config/company';
 import { visibleServices } from '@/content/services';
 import { metadata } from '@/lib/seo';
+import { safeArticleSlug } from '@/lib/article-attribution';
 export const generateMetadata = () => ({
   ...metadata(
     'Demande de devis',
@@ -14,7 +15,12 @@ export const generateMetadata = () => ({
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ commune?: string; codePostal?: string; prestation?: string }>;
+  searchParams: Promise<{
+    commune?: string;
+    codePostal?: string;
+    prestation?: string;
+    article?: string;
+  }>;
 }) {
   const q = await searchParams;
   const enabled =
@@ -42,6 +48,7 @@ export default async function Page({
       </div>
       <div className="quote-layout">
         <QuoteForm
+          sourceArticle={safeArticleSlug(q.article)}
           service={visibleServices().some((s) => s.slug === q.prestation) ? q.prestation : ''}
           commune={typeof q.commune === 'string' ? q.commune.slice(0, 100) : ''}
           postalCode={typeof q.codePostal === 'string' ? q.codePostal.slice(0, 5) : ''}

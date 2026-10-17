@@ -14,7 +14,8 @@
     "test:e2e": "playwright test",
     "import:communes": "node scripts/import-communes.mjs",
     "check:config": "tsx scripts/check-config.ts",
-    "report": "tsx scripts/report.ts"
+    "report": "tsx scripts/report.ts",
+    "audit:editorial": "tsx scripts/editorial-audit.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

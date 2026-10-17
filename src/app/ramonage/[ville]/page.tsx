@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { RelatedResources } from '@/components/related-resources';
 import { GeoMap } from '@/components/geo-map';
 import { notFound } from 'next/navigation';
 import { Breadcrumbs, CTA, Faq, Photo } from '@/components/ui';
@@ -94,6 +95,7 @@ export default async function Page({ params }: { params: Promise<{ ville: string
                 Rassemblez les documents d’entretien et indiquez les contraintes du logement. Aucun
                 délai ni tarif n’est annoncé avant examen de la demande.
               </p>
+              <RelatedResources department={dep.code} />
             </article>
             <aside className="aside-card">
               <h2>
@@ -236,6 +238,7 @@ export default async function Page({ params }: { params: Promise<{ ville: string
               Données géographiques : <a href={content.source}>API Géo — {c.name}</a> · Relecture
               préparatoire : {content.reviewedAt}
             </div>
+            <RelatedResources department={c.department} />
           </article>
           <aside className="aside-card">
             <h2>Votre demande à {c.name}.</h2>

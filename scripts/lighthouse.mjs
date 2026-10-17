@@ -3,6 +3,7 @@ import { chromium } from '@playwright/test';
 import { launch } from 'chrome-launcher';
 import { mkdir, writeFile } from 'node:fs/promises';
 await mkdir('artifacts', { recursive: true });
+const name = (process.env.AUDIT_NAME || 'lighthouse-mobile').replace(/[^a-z0-9-]/gi, '');
 const chrome = await launch({
   chromePath: chromium.executablePath(),
   chromeFlags: ['--headless', '--no-sandbox', '--disable-dev-shm-usage'],
@@ -13,8 +14,8 @@ try {
     output: ['html', 'json'],
     onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo'],
   });
-  await writeFile('artifacts/lighthouse-mobile.html', result.report[0]);
-  await writeFile('artifacts/lighthouse-mobile.json', result.report[1]);
+  await writeFile(`artifacts/${name}.html`, result.report[0]);
+  await writeFile(`artifacts/${name}.json`, result.report[1]);
   console.log(
     JSON.stringify(
       {

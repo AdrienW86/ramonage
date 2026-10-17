@@ -10,12 +10,14 @@ export function QuoteForm({
   commune = '',
   postalCode = '',
   service = '',
+  sourceArticle = '',
   enabled,
   options,
 }: {
   commune?: string;
   postalCode?: string;
   service?: string;
+  sourceArticle?: string;
   enabled: boolean;
   options: { slug: string; title: string }[];
 }) {
@@ -39,6 +41,7 @@ export function QuoteForm({
       consent: false,
       website: '',
       service,
+      sourceArticle,
       startedAt: 0,
       requestId: '00000000-0000-4000-8000-000000000000',
     },
@@ -62,7 +65,8 @@ export function QuoteForm({
       }
       setSuccess(true);
       setFeedback(result.message);
-      trackEvent('devis_envoye');
+      trackEvent('devis_envoye', sourceArticle);
+      if (sourceArticle) trackEvent('devis_depuis_guide', sourceArticle);
     } catch {
       setFeedback('Connexion interrompue. Aucun envoi n’est confirmé. Réessayez.');
     } finally {
