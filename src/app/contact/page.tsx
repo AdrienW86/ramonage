@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Breadcrumbs, CTA } from '@/components/ui';
-import { company, isPublicReady } from '@/config/company';
+import { company } from '@/config/company';
 import { ContactForm } from '@/components/contact-form';
 import { metadata } from '@/lib/seo';
 export const generateMetadata = () =>
@@ -47,7 +47,7 @@ export default function Page() {
           <div>
             <p className="eyebrow">UN CONTACT SIMPLE ET PERSONNALISÉ</p>
             <h2 style={{ fontSize: 36, marginBottom: 25 }}>Écrivez-nous.</h2>
-            <ContactForm enabled={isPublicReady() && company.commercial.formEnabled && !!process.env.RESEND_API_KEY && !!process.env.RESEND_FROM && !!company.quoteRecipient && !!process.env.RATE_LIMIT_REST_URL && !!process.env.RATE_LIMIT_REST_TOKEN} />
+            <ContactForm enabled={!!process.env.RESEND_API_KEY && !!process.env.RESEND_FROM && !!company.quoteRecipient} />
           </div>
           <aside className="aside-card">
             <p className="eyebrow">À VOTRE ÉCOUTE</p>
