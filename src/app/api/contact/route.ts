@@ -70,7 +70,42 @@ export async function POST(request: Request) {
       html: '<div style="font-family:Arial,sans-serif;max-width:620px;margin:auto;color:#171a1c"><h1 style="font-family:Georgia,serif">Nouvelle demande de contact</h1><p><strong>Sujet :</strong> ' + escapeHtml(subjects[data.subject]) + '</p><p><strong>Nom :</strong> ' + escapeHtml(data.name) + '</p><p><strong>Email :</strong> ' + escapeHtml(data.email) + '</p><p><strong>Téléphone :</strong> ' + escapeHtml(data.phone || 'Non renseigné') + '</p><p><strong>Commune :</strong> ' + escapeHtml(data.commune || 'Non renseignée') + '</p><hr/><p style="white-space:pre-wrap">' + escapeHtml(data.message) + '</p></div>',
     }, { idempotencyKey: 'contact/' + data.requestId });
     if (result.error || !result.data?.id) return fail('Envoi impossible. Contactez-nous par téléphone.', 502);
-    return Response.json({ ok: true, message: 'Message transmis.' }, { headers: { 'Cache-Control': 'no-store' } });
+    // L'accusé de réception est distinct de l'envoi à l'entreprise :
+    // son échec ne déclenche pas une nouvelle demande et n'annule pas le premier email.
+    let confirmationSent = false;
+    try {
+      const confirmation = await new Resend(process.env.RESEND_API_KEY).emails.send({
+        from: process.env.RESEND_FROM,
+        to: data.email,
+        replyTo: company.quoteRecipient,
+        subject: 'Nous avons reçu votre message — ' + company.name,
+        text: [
+          'Bonjour ' + data.name + ',',
+          '',
+          'Nous avons bien reçu votre message adressé à ' + company.name + '.',
+          'Objet : ' + subjects[data.subject],
+          '',
+          'Voici une copie de votre message :',
+          data.message,
+          '',
+          'Votre demande a été transmise. Ce message automatique ne constitue ni un devis ni une confirmation de rendez-vous.',
+          '',
+          'Cordialement,',
+          'L’équipe ' + company.name,
+        ].join('\\n'),
+        html: '<div style="background:#f5f1ea;padding:30px 15px;font-family:Arial,sans-serif;color:#171a1c"><div style="max-width:600px;margin:auto;background:#ffffff;padding:36px;border-top:4px solid #b77b48"><p style="font-size:11px;letter-spacing:2px;color:#82512c;text-transform:uppercase">Accusé de réception</p><h1 style="font-family:Georgia,serif;font-weight:normal;font-size:32px">Votre message est bien reçu.</h1><p>Bonjour ' + escapeHtml(data.name) + ',</p><p>Nous avons bien reçu votre demande adressée à ' + escapeHtml(company.name) + '.</p><p><strong>Objet :</strong> ' + escapeHtml(subjects[data.subject]) + '</p><div style="padding:20px;background:#f5f1ea;border-left:3px solid #b77b48"><p style="white-space:pre-wrap">' + escapeHtml(data.message) + '</p></div><p style="font-size:12px;color:#686860;margin-top:28px">Cet email automatique confirme la réception de votre message. Il ne constitue ni un devis, ni une confirmation de rendez-vous.</p><p>Cordialement,<br />L’équipe ' + escapeHtml(company.name) + '</p></div></div>',
+      }, { idempotencyKey: 'contact-confirmation/' + data.requestId });
+      confirmationSent = !!confirmation.data?.id && !confirmation.error;
+      if (!confirmationSent) console.error('Contact confirmation rejected by email provider');
+    } catch {
+      console.error('Contact confirmation email could not be submitted');
+    }
+    return Response.json({
+      ok: true,
+      message: confirmationSent
+        ? 'Votre demande a été transmise. Un email de confirmation vous a été adressé.'
+        : 'Votre demande a été transmise. L’email de confirmation n’a pas pu être envoyé.',
+    }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
     if (error instanceof SyntaxError) return fail('Format invalide.', 400);
     return fail('Service momentanément indisponible.', 503);
