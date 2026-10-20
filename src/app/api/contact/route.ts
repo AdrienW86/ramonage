@@ -51,7 +51,34 @@ export async function POST(request: Request) {
     const ip = ((process.env.VERCEL ? request.headers.get('x-vercel-forwarded-for') : request.headers.get('x-forwarded-for')) || 'unknown').split(',')[0].trim();
     const allowed = process.env.RATE_LIMIT_REST_URL && process.env.RATE_LIMIT_REST_TOKEN ? await rateLimit(ip) : localLimit(ip);
     if (!allowed) return fail('Trop de demandes. Réessayez dans 15 minutes.', 429);
-    const text = [
+    const senderAddress = process.env.RESEND_FROM!;
+    // Garder l'adresse vérifiée et afficher un nom explicite au lieu du nom de la boîte.
+    const senderEmail = senderAddress.match(/<([^<>]+)>/)?.[1] || senderAddress.trim();
+    const sender = `Ramonage Roussillon <${senderEmail}>`;
+    const safeName = escapeHtml(data.name);
+    const safeEmail = escapeHtml(data.email);
+    const safePhone = escapeHtml(data.phone || 'Non renseigné');
+    const safeCommune = escapeHtml(data.commune || 'Non renseignée');
+    const safeSubject = escapeHtml(subjects[data.subject]);
+    const safeMessage = escapeHtml(data.message).replace(/\r?\n/g, '<br />');
+    const row = (label: string, value: string) => `<tr><td style="padding:12px 0;color:#77746e;font-size:12px;vertical-align:top;width:130px;border-bottom:1px solid #e9e5de">${label}</td><td style="padding:12px 0;color:#202323;font-size:14px;font-weight:600;border-bottom:1px solid #e9e5de">${value}</td></tr>`;
+    const businessHtml = `<!doctype html><html lang="fr"><body style="margin:0;padding:35px 12px;background:#f2eee7;font-family:Arial,Helvetica,sans-serif;color:#171a1c">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;max-width:630px;margin:auto;background:#fff;border-collapse:collapse"><tr><td style="background:#1b2021;color:#f7f0e5;padding:30px 36px;border-top:4px solid #b77b48">
+        <div style="font-size:11px;letter-spacing:2px;color:#d8a77b">RAMONAGE ROUSSILLON</div>
+        <h1 style="font:normal 32px Georgia,serif;line-height:1.25;margin:17px 0 8px">Nouvelle demande de contact</h1>
+        <div style="font-size:13px;color:#d9d4cb">Un visiteur vous a écrit depuis le site internet.</div>
+      </td></tr><tr><td style="padding:32px 36px">
+        <div style="display:inline-block;background:#f3e7da;padding:7px 12px;color:#80502b;font-size:12px;font-weight:bold"> ${safeSubject} </div>
+        <h2 style="font:normal 24px Georgia,serif;margin:30px 0 12px">Coordonnées du demandeur</h2>
+        <table role="presentation" style="width:100%;border-collapse:collapse">
+        ${row('Nom',safeName)}${row('Email',`<a style="color:#80502b" href="mailto:${encodeURIComponent(data.email)}">${safeEmail}</a>`)}${row('Téléphone',safePhone)}${row('Commune',safeCommune)}
+        </table>
+        <h2 style="font:normal 24px Georgia,serif;margin:34px 0 15px">Son message</h2>
+        <div style="padding:23px;background:#f5f1ea;border-left:4px solid #b77b48;font-size:14px;line-height:1.8;overflow-wrap:anywhere">${safeMessage}</div>
+        <p style="font-size:12px;color:#686860;margin:25px 0 0">Pour répondre au visiteur, utilisez « Répondre » dans votre messagerie : son adresse a été renseignée en Reply-To.</p>
+      </td></tr><tr><td style="background:#1b2021;color:#d7d1c8;text-align:center;font-size:11px;padding:22px">Ramonage Roussillon · Notification du formulaire du site internet</td></tr></table>
+      </body></html>`;
+    const businessText = [
       'Nouvelle demande de contact — ' + company.name,
       'Sujet : ' + subjects[data.subject],
       'Nom : ' + data.name,
@@ -62,12 +89,12 @@ export async function POST(request: Request) {
       data.message,
     ].join('\n');
     const result = await new Resend(process.env.RESEND_API_KEY).emails.send({
-      from: process.env.RESEND_FROM,
+      from: sender,
       to: company.quoteRecipient,
       replyTo: data.email,
-      subject: 'Contact site — ' + subjects[data.subject],
-      text,
-      html: '<div style="font-family:Arial,sans-serif;max-width:620px;margin:auto;color:#171a1c"><h1 style="font-family:Georgia,serif">Nouvelle demande de contact</h1><p><strong>Sujet :</strong> ' + escapeHtml(subjects[data.subject]) + '</p><p><strong>Nom :</strong> ' + escapeHtml(data.name) + '</p><p><strong>Email :</strong> ' + escapeHtml(data.email) + '</p><p><strong>Téléphone :</strong> ' + escapeHtml(data.phone || 'Non renseigné') + '</p><p><strong>Commune :</strong> ' + escapeHtml(data.commune || 'Non renseignée') + '</p><hr/><p style="white-space:pre-wrap">' + escapeHtml(data.message) + '</p></div>',
+      subject: 'Nouvelle demande · ' + subjects[data.subject] + ' — ' + data.name,
+      text: businessText,
+      html: businessHtml,
     }, { idempotencyKey: 'contact/' + data.requestId });
     if (result.error || !result.data?.id) return fail('Envoi impossible. Contactez-nous par téléphone.', 502);
     // L'accusé de réception est distinct de l'envoi à l'entreprise :
@@ -75,7 +102,7 @@ export async function POST(request: Request) {
     let confirmationSent = false;
     try {
       const confirmation = await new Resend(process.env.RESEND_API_KEY).emails.send({
-        from: process.env.RESEND_FROM,
+        from: sender,
         to: data.email,
         replyTo: company.quoteRecipient,
         subject: 'Nous avons reçu votre message — ' + company.name,
@@ -92,7 +119,7 @@ export async function POST(request: Request) {
           '',
           'Cordialement,',
           'L’équipe ' + company.name,
-        ].join('\\n'),
+        ].join('\n'),
         html: '<div style="background:#f5f1ea;padding:30px 15px;font-family:Arial,sans-serif;color:#171a1c"><div style="max-width:600px;margin:auto;background:#ffffff;padding:36px;border-top:4px solid #b77b48"><p style="font-size:11px;letter-spacing:2px;color:#82512c;text-transform:uppercase">Accusé de réception</p><h1 style="font-family:Georgia,serif;font-weight:normal;font-size:32px">Votre message est bien reçu.</h1><p>Bonjour ' + escapeHtml(data.name) + ',</p><p>Nous avons bien reçu votre demande adressée à ' + escapeHtml(company.name) + '.</p><p><strong>Objet :</strong> ' + escapeHtml(subjects[data.subject]) + '</p><div style="padding:20px;background:#f5f1ea;border-left:3px solid #b77b48"><p style="white-space:pre-wrap">' + escapeHtml(data.message) + '</p></div><p style="font-size:12px;color:#686860;margin-top:28px">Cet email automatique confirme la réception de votre message. Il ne constitue ni un devis, ni une confirmation de rendez-vous.</p><p>Cordialement,<br />L’équipe ' + escapeHtml(company.name) + '</p></div></div>',
       }, { idempotencyKey: 'contact-confirmation/' + data.requestId });
       confirmationSent = !!confirmation.data?.id && !confirmation.error;
