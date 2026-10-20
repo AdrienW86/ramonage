@@ -20,7 +20,13 @@ const escapeHtml = (value: string) => value.replace(/[&<>"']/g, ch => ({ '&': '&
 const subjects: Record<string, string> = { question: 'Question générale', ramonage: 'Ramonage', debistrage: 'Débistrage', entretien: 'Entretien d’un appareil', autre: 'Autre demande' };
 
 export async function POST(request: Request) {
-  if (request.headers.get('origin') !== new URL(company.url).origin) return fail('Origine non autorisée.', 403);
+  const origin = request.headers.get('origin');
+  const official = new URL(company.url);
+  const allowedOrigins = new Set([
+    official.origin,
+    official.protocol + '//www.' + official.hostname,
+  ]);
+  if (!origin || !allowedOrigins.has(origin)) return fail('Origine non autorisée.', 403);
   if (!request.headers.get('content-type')?.includes('application/json')) return fail('Format non pris en charge.', 415);
   if (Number(request.headers.get('content-length') || 0) > 12000) return fail('Message trop volumineux.', 413);
   if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM || !company.quoteRecipient) return fail('Le formulaire n’est pas encore disponible.', 503);
