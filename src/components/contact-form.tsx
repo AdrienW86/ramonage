@@ -28,7 +28,7 @@ export function ContactForm({ enabled }: { enabled: boolean }) {
         return;
       }
       setSent(true);
-      setFeedback('Votre message a été transmis au service email. Merci pour votre demande.');
+      setFeedback(result.message || 'Votre demande a été transmise.');
     } catch {
       setFeedback('La connexion a été interrompue. Aucun envoi n’est confirmé.');
     }
