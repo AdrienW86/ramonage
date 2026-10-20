@@ -24,7 +24,7 @@ const q = {
   startedAt: Date.now() - 10000,
   requestId: 'a24b8054-dca5-420c-b11a-56d754d31a4c',
 };
-const request = (payload: unknown, origin = 'http://localhost:3000') =>
+const request = (payload: unknown, origin = new URL(company.url).origin) =>
   new Request('http://localhost:3000/api/devis', {
     method: 'POST',
     headers: { origin, 'Content-Type': 'application/json' },
@@ -66,7 +66,7 @@ it('teste le succès Resend avec des dépendances simulées uniquement', async (
     name: 'Entreprise validée',
     legalName: 'Entreprise validée',
     legalStatus: 'EI',
-    siret: '12345678901234',
+    siret: '12345678901237',
     url: 'https://ramonage-domaine.fr',
     phone: '0612345678',
     email: 'contact@ramonage-domaine.fr',

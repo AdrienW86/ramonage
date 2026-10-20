@@ -21,7 +21,7 @@ export default function Page() {
         <p>
           Nom commercial : {company.name}
           <br />
-          Raison sociale : {company.legalName}
+          Exploitant : {company.legalName}
           <br />
           Forme juridique : {company.legalStatus}
           <br />
@@ -30,7 +30,7 @@ export default function Page() {
           SIRET : {company.siret}
           <br />
           Adresse :{' '}
-          {`${company.address.street}, ${company.address.postalCode} ${company.address.city}`}
+          {`${company.address.street}, ${company.address.postalCode} ${company.address.city}, ${company.address.country}`}
           <br />
           Téléphone : {company.phone}
           <br />
@@ -52,7 +52,9 @@ export default function Page() {
         <p>
           Les contenus présentent les prestations confirmées dans la configuration au moment de la
           publication. La faisabilité, le prix, le périmètre et la desserte doivent être précisés
-          avant engagement. La demande en ligne ne constitue pas une commande.
+          avant engagement. La demande en ligne ne constitue pas une commande. Après chaque
+          ramonage, une attestation est remise dans les quinze jours ouvrés, conformément à
+          l’article R1331-75 du Code de la santé publique.
         </p>
         <h2>Contenus et illustrations</h2>
         <p>

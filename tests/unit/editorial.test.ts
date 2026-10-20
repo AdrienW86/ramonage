@@ -93,7 +93,7 @@ describe('Données structurées et publication', () => {
       name: 'Éditeur de test validé',
       legalName: 'Éditeur validé',
       legalStatus: 'EI',
-      siret: '12345678901234',
+      siret: '12345678901237',
       url: 'https://ramonage-valide.fr',
       phone: '0612345678',
       email: 'contact@ramonage-valide.fr',

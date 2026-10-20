@@ -13,7 +13,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "import:communes": "node scripts/import-communes.mjs",
-    "check:config": "tsx scripts/check-config.ts",
+    "check:config": "tsx scripts/check-config.ts --strict",
     "report": "tsx scripts/report.ts",
     "audit:editorial": "tsx scripts/editorial-audit.ts"
   },

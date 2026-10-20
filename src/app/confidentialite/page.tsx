@@ -20,8 +20,8 @@ export default function Page() {
       <article className="prose" style={{ maxWidth: 800, paddingBottom: 80 }}>
         <h2>Responsable du traitement</h2>
         <p>
-          {company.legalName}. Pour exercer vos droits : {company.email}. Voir les{' '}
-          <Link href="/mentions-legales">mentions légales</Link>.
+          {company.legalName}, {company.legalStatus}. Pour exercer vos droits : {company.email}.
+          Voir les <Link href="/mentions-legales">mentions légales</Link>.
         </p>
         <h2>Demande de devis</h2>
         <p>

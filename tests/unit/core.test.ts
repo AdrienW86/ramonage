@@ -89,6 +89,11 @@ describe('Publication et SEO', () => {
     expect(configurationIssues().length).toBeGreaterThan(5);
     expect(companySchema.safeParse({}).success).toBe(false);
   });
+  it('refuse un SIRET dont la clé de contrôle est fausse', () => {
+    const siret = companySchema.shape.siret;
+    expect(siret.safeParse('83479975100013').success).toBe(true);
+    expect(siret.safeParse('83479975100014').success).toBe(false);
+  });
   it('exclut les brouillons du sitemap et désactive l’indexation', () => {
     expect(publicRoutes()).toEqual([]);
     expect(sitemap()).toEqual([]);
@@ -102,7 +107,7 @@ describe('Publication et SEO', () => {
       { label: 'Prestations', href: '/prestations' },
     ]);
     expect(b.itemListElement[1].position).toBe(2);
-    expect(b.itemListElement[1].item).toBe('http://localhost:3000/prestations');
+    expect(b.itemListElement[1].item).toBe('https://ramonage-roussillon.fr/prestations');
   });
   it('mutualise les synonymes et conserve huit prestations complètes', () => {
     expect(services).toHaveLength(8);

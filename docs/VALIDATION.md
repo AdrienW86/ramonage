@@ -49,7 +49,7 @@ Rapports détaillés locaux : `artifacts/lighthouse-mobile.html`, `artifacts/lig
 
 ## Reste indispensable avant ouverture
 
-Renseigner les variables d’identité et coordonnées de `.env.example`, le domaine HTTPS, les prestations confirmées, le directeur de publication et le médiateur effectif ; valider textes légaux et politique de conservation ; approuver la publication via `PUBLISHING_APPROVED`.
+Compléter dans `src/config/company.ts` l’email, les prestations confirmées, le médiateur effectif et la politique de conservation ; valider les textes légaux ; approuver la publication via `publishingApproved`.
 
 Configurer `RESEND_API_KEY`, `RESEND_FROM`, `QUOTE_TO`, `RATE_LIMIT_REST_URL`, `RATE_LIMIT_REST_TOKEN` puis activer `NEXT_PUBLIC_QUOTE_ENABLED` si souhaité. Aucun email réel n’a été envoyé ni reçu pendant la validation : l’acceptation Resend et la livraison dans la boîte réelle doivent être testées après fourniture des accès. Vérifier les contrats des sous-traitants et la suppression des demandes dans la messagerie.
 

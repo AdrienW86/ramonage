@@ -1,48 +1,53 @@
 import { z } from 'zod';
 
-// Source unique : aucune coordonnée n'est recopiée dans les composants.
+// Source unique des informations publiques : aucune coordonnée n'est recopiée dans les
+// composants ni stockée en variable d'environnement. Une chaîne vide signale une donnée
+// non confirmée : elle n'est pas affichée et maintient le site en prévisualisation.
+const siret = '83479975100013';
 export const company = {
-  name: process.env.NEXT_PUBLIC_COMPANY_NAME || '',
-  legalName: process.env.COMPANY_LEGAL_NAME || '',
-  legalStatus: process.env.COMPANY_LEGAL_STATUS || '',
-  siren: process.env.COMPANY_SIRET?.slice(0, 9) || '',
-  siret: process.env.COMPANY_SIRET || '',
+  name: 'Ramonage Roussillon',
+  legalName: 'ROBLES Grégory',
+  legalStatus: 'Entrepreneur individuel (EI)',
+  siren: siret.slice(0, 9),
+  siret,
   logo: null as string | null,
   description: 'Guides sur le ramonage, l’entretien des appareils et la sécurité des conduits.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-  phone: process.env.NEXT_PUBLIC_PHONE || '',
-  email: process.env.NEXT_PUBLIC_EMAIL || '',
+  url: 'https://ramonage-roussillon.fr',
+  phone: '06 62 12 56 11',
+  // À confirmer : adresse professionnelle propre à Ramonage Roussillon.
+  email: '',
   address: {
-    street: process.env.COMPANY_STREET || '',
-    postalCode: process.env.COMPANY_POSTAL_CODE || '',
-    city: process.env.COMPANY_CITY || '',
+    street: '5 Rue du Moulinas',
+    postalCode: '66330',
+    city: 'Cabestany',
+    country: 'France',
   },
   hours: [] as { day: string; opens: string; closes: string }[],
   departments: ['11', '66'],
   priorityCities: ['Perpignan', 'Narbonne'],
   socialLinks: [] as { label: string; url: string }[],
-  services: (process.env.CONFIRMED_SERVICES || '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean),
+  // À confirmer : slugs de src/content/services.ts réellement exercés.
+  services: [] as string[],
   commercial: {
+    // Le formulaire dépend des secrets Resend et Redis : il reste piloté par l'environnement.
     formEnabled: process.env.NEXT_PUBLIC_QUOTE_ENABLED === 'true',
     showHours: false,
-    callsEnabled: !!process.env.NEXT_PUBLIC_PHONE,
+    callsEnabled: true,
   },
   quoteRecipient: process.env.QUOTE_TO || '',
+  // Adresse vérifiée dans les conditions d'utilisation de Vercel (section 23.3.4).
   hosting: {
-    name: process.env.HOSTING_NAME || '',
-    address: process.env.HOSTING_ADDRESS || '',
-    url: process.env.HOSTING_URL || '',
+    name: 'Vercel Inc.',
+    address: '440 N Barranca Ave #4133, Covina, CA 91723, États-Unis',
+    url: 'https://vercel.com',
   },
-  privacyRetention: process.env.PRIVACY_RETENTION_POLICY || '',
-  publishingDirector: process.env.COMPANY_PUBLISHING_DIRECTOR || '',
-  mediator: {
-    name: process.env.COMPANY_MEDIATOR_NAME || '',
-    url: process.env.COMPANY_MEDIATOR_URL || '',
-  },
-  publishingApproved: process.env.PUBLISHING_APPROVED === 'true',
+  // À confirmer par le responsable du traitement.
+  privacyRetention: '',
+  publishingDirector: 'Grégory Robles',
+  // À confirmer : uniquement un médiateur auquel l'entreprise adhère.
+  mediator: { name: '', url: '' },
+  // Passer à true seulement après relecture complète des informations et textes légaux.
+  publishingApproved: false as boolean,
 };
 const required = z
   .string()
@@ -52,11 +57,22 @@ const required = z
     (s) => !/(à définir|à compléter|placeholder|example|exemple|test|fictif)/i.test(s),
     'Valeur provisoire interdite',
   );
+// Clé de Luhn du SIRET : écarte une saisie erronée avant publication.
+function luhn(s: string) {
+  const sum = [...s].reverse().reduce((t, c, i) => {
+    const d = Number(c) * (i % 2 ? 2 : 1);
+    return t + (d > 9 ? d - 9 : d);
+  }, 0);
+  return sum % 10 === 0;
+}
 export const companySchema = z.object({
   name: required,
   legalName: required,
   legalStatus: required,
-  siret: z.string().regex(/^\d{14}$/),
+  siret: z
+    .string()
+    .regex(/^\d{14}$/)
+    .refine(luhn, 'SIRET invalide (clé de contrôle)'),
   url: z
     .url()
     .refine(

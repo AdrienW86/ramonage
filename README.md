@@ -13,7 +13,7 @@ npm run dev
 
 Ouvrir `http://localhost:3000`. Sous Windows PowerShell avec scripts désactivés, utiliser `npm.cmd` / `npx.cmd` sans modifier la politique d’exécution.
 
-Pour une compilation optimisée locale : `npm run build:preview`, puis `npm run start`. Cette commande conserve bandeau préparatoire, formulaire désactivé, sitemap vide et `noindex`. Le build de publication `npm run build` échoue volontairement si la configuration commerciale est incomplète. Ne pas utiliser `build:preview` pour publier.
+Pour une compilation optimisée locale : `npm run build:preview`, puis `npm run start`. Cette commande conserve bandeau préparatoire, formulaire désactivé, sitemap vide et `noindex`. `npm run build` produit la même prévisualisation tant que la configuration est incomplète, et échoue si la publication est approuvée sans informations obligatoires. `npm run check:config` contrôle strictement la publiabilité.
 
 ## Fonctionnalités
 
@@ -31,13 +31,13 @@ Pour une compilation optimisée locale : `npm run build:preview`, puis `npm run 
 
 ## Configuration
 
-Copier `.env.example` vers `.env.local`. `src/config/company.ts` est l’unique configuration de l’entreprise, dont le logo, les réseaux et les horaires. Une valeur inconnue reste absente ou explicitement provisoire.
+`src/config/company.ts` est l’unique configuration publique de l’entreprise (identité, coordonnées, domaine, hébergeur, médiateur, logo, réseaux, horaires). Une valeur inconnue reste vide : elle n’est pas affichée et maintient la prévisualisation. `.env.example` ne liste que les réglages techniques et secrets, à copier vers `.env.local` ou Vercel.
 
-Les valeurs de `CONFIRMED_SERVICES` sont les slugs de `src/content/services.ts`, séparés par des virgules. Les prestations préparées portent un avertissement ; seules les prestations confirmées sont présentées au public après validation.
+`company.services` liste les slugs de `src/content/services.ts` réellement exercés. Les prestations préparées portent un avertissement ; seules les prestations confirmées sont présentées au public après validation.
 
 Le formulaire exige identité validée, `NEXT_PUBLIC_QUOTE_ENABLED=true`, `RESEND_API_KEY`, expéditeur vérifié `RESEND_FROM`, destinataire `QUOTE_TO`, `RATE_LIMIT_REST_URL`, `RATE_LIMIT_REST_TOKEN`. Les secrets ne portent jamais le préfixe `NEXT_PUBLIC_`. Sans configuration, aucun succès d’envoi n’est simulé.
 
-À compléter : identité, SIRET, statut juridique, adresse, téléphone, email, domaine, directeur de publication, médiateur effectif, prestations et communes réellement desservies, documents remis, qualifications/assurances vérifiées, contrats de sous-traitance et procédure de conservation. Mettre `PUBLISHING_APPROVED=true` après relecture.
+À confirmer : email, médiateur effectif, prestations et communes réellement desservies, documents remis, qualifications/assurances vérifiées, contrats de sous-traitance et politique de conservation. Passer `publishingApproved` à `true` après relecture.
 
 ## Vérification
 

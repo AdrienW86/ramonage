@@ -28,7 +28,7 @@ Resend est instancié uniquement côté serveur ; les entrées HTML sont échapp
 
 Métadonnées centralisées, canonical, Open Graph, Twitter, breadcrumbs JSON-LD. LocalBusiness n’existe qu’avec identité validée. Service n’est émis que pour une prestation confirmée. Aucun avis ni établissement fictif. Sitemap vide et robots bloquants en préparation ; après validation il contient uniquement les routes canoniques admises. Les filtres et la demande de devis restent non indexables.
 
-`npm run build` vérifie la configuration avant Next.js. `npm run build:preview` permet uniquement une prévisualisation locale : pas de publication avec cette commande. Vercel utilise le build protégé.
+`npm run build` vérifie la configuration avant Next.js : configuration incomplète → prévisualisation non indexable ; publication approuvée mais incomplète → échec. `npm run check:config` applique le contrôle strict. Vercel utilise `npm run build`.
 
 ## Confidentialité
 
