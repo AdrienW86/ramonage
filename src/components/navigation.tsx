@@ -6,7 +6,7 @@ import { ArrowUpRight, Menu, Phone, X } from 'lucide-react';
 import { Brand } from './brand';
 const links = [
   ['Prestations', '/prestations'],
-  ['Zones d’intervention', '/zones-intervention'],
+  ['Les communes', '/zones-intervention'],
   ['Notre approche', '/a-propos'],
   ['Conseils', '/conseils'],
 ];
@@ -14,10 +14,12 @@ export function Header({
   name,
   phone,
   logo,
+  quoteEnabled = false,
 }: {
   name: string;
   phone: string;
   logo: string | null;
+  quoteEnabled?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -73,8 +75,12 @@ export function Header({
             </Link>
           ))}
         </nav>
-        <Link className="button small header-quote" href="/devis" data-track="clic_devis">
-          Demander un devis <ArrowUpRight size={16} />
+        <Link
+          className="button small header-quote"
+          href={quoteEnabled ? '/devis' : '/conseils'}
+          data-track={quoteEnabled ? 'clic_devis' : undefined}
+        >
+          {quoteEnabled ? 'Demander un devis' : 'Les guides'} <ArrowUpRight size={16} />
         </Link>
         <button
           ref={toggle}
@@ -105,8 +111,12 @@ export function Header({
           <Link href="/contact" onClick={() => setOpen(false)}>
             Contact
           </Link>
-          <Link href="/devis" className="button" onClick={() => setOpen(false)}>
-            Demander un devis
+          <Link
+            href={quoteEnabled ? '/devis' : '/questions-frequentes'}
+            className="button"
+            onClick={() => setOpen(false)}
+          >
+            {quoteEnabled ? 'Demander un devis' : 'Questions fréquentes'}
           </Link>
           <button
             onClick={() => {

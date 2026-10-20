@@ -1,3 +1,4 @@
+import { canRequestQuote } from '@/config/company';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -18,7 +19,7 @@ import { metadata } from '@/lib/seo';
 export const generateMetadata = () =>
   metadata(
     'Ramonage à Perpignan, Narbonne et alentours',
-    'Préparez l’entretien de votre cheminée, poêle ou conduit dans l’Aude et les Pyrénées-Orientales. Prestations et desserte à confirmer.',
+    'Préparez l’entretien de votre cheminée, poêle ou conduit dans l’Aude et les Pyrénées-Orientales. Guides, entretien et prévention.',
     '/',
   );
 export default function Home() {
@@ -54,8 +55,9 @@ export default function Home() {
             <br className="desktop-break" /> pour profiter de l’essentiel.
           </p>
           <div className="hero-actions">
-            <Link href="/devis" className="button" data-track="clic_devis">
-              Demander un devis <ArrowUpRight size={19} />
+            <Link href={canRequestQuote() ? '/devis' : '/conseils'} className="button">
+              {canRequestQuote() ? 'Demander un devis' : 'Explorer les guides'}{' '}
+              <ArrowUpRight size={19} />
             </Link>
             <Link href="/prestations" className="hero-secondary">
               Découvrir les prestations <ArrowUpRight size={17} />
@@ -63,7 +65,7 @@ export default function Home() {
           </div>
           <div className="hero-bottom">
             <span>
-              <MapPin size={15} /> Perpignan · Narbonne · Desserte à confirmer
+              <MapPin size={15} /> Perpignan · Narbonne · Aude & Pyrénées-Orientales
             </span>
             <a href="#prestations" aria-label="Découvrir la suite">
               <ArrowDown size={20} />
@@ -92,7 +94,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="01 / PRENDRE SOIN DE VOTRE INSTALLATION"
               title="À chaque foyer, son entretien."
-              text="Du feu ouvert aux équipements contemporains, découvrez les interventions à confirmer selon votre installation."
+              text="Du feu ouvert aux équipements contemporains, comprenez les besoins d’entretien de chaque installation."
             />
             <Link className="text-link" href="/prestations">
               Toutes les prestations <ArrowUpRight size={18} />
@@ -172,8 +174,8 @@ export default function Home() {
               <em>et Pyrénées.</em>
             </h2>
             <p>
-              Deux départements, deux pôles prioritaires : Narbonne et Perpignan. Recherchez votre
-              commune pour préparer une demande et faire confirmer la desserte.
+              Retrouvez les communes et codes postaux de l’Aude et des Pyrénées-Orientales dans le
+              répertoire géographique, autour de Narbonne et Perpignan.
             </p>
             <CommuneSearch />
             <Link className="text-link" href="/zones-intervention">
@@ -213,7 +215,7 @@ export default function Home() {
             .slice(0, 3)
             .map((g) => (
               <Link className="guide-card" href={`/conseils/${g.slug}`} key={g.slug}>
-                <Photo name={g.image} alt={`${g.category} — illustration générée par IA`} />
+                <Photo name={g.image} alt={g.imageAlt} />
                 <p className="eyebrow">{g.category}</p>
                 <h3>
                   {g.title} <ArrowUpRight size={20} />
@@ -232,11 +234,11 @@ export default function Home() {
             },
             {
               q: 'Intervenez-vous dans ma commune ?',
-              a: 'Le référentiel couvre les communes des départements 11 et 66. Il ne vaut pas confirmation de desserte. Utilisez la recherche puis faites confirmer la prise en charge.',
+              a: 'Le référentiel couvre les communes des départements 11 et 66. Il ne vaut pas confirmation de desserte. La présence d’une commune ne constitue pas une offre d’intervention.',
             },
             {
               q: 'Quel est le prix d’un ramonage ?',
-              a: 'Aucun tarif n’est encore confirmé. Un devis doit préciser le prix, les accès et les opérations retenues avant l’intervention.',
+              a: 'Un devis doit préciser le prix, les accès et les opérations retenues avant l’intervention.',
             },
             {
               q: 'À quelle fréquence faut-il faire ramoner ?',

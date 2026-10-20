@@ -5,7 +5,6 @@ export const practicalGuides = [
     slug: 'prix-ramonage',
     title: 'Combien coûte un ramonage ? Les éléments à comparer',
     category: 'questions-pratiques',
-    image: 'outillage',
     intent: 'Comprendre un prix sans inventer de barème.',
     intro:
       'Le montant doit être confirmé par un devis correspondant à votre installation. Aucun tarif de l’entreprise n’est encore validé. Comparez surtout le périmètre, le déplacement, les accès et les opérations incluses, plutôt qu’un prix isolé.',
@@ -48,7 +47,6 @@ export const practicalGuides = [
     slug: 'duree-ramonage',
     title: 'Combien de temps dure un ramonage ?',
     category: 'questions-pratiques',
-    image: 'outillage',
     intent: 'Préparer la disponibilité sans durée chiffrée fictive.',
     intro:
       'La durée ne peut pas être garantie sans connaître l’installation, les accès et le périmètre. Demandez une estimation au professionnel lors de la préparation ; un créneau annoncé ne doit pas masquer une opération supplémentaire nécessaire.',
@@ -91,7 +89,6 @@ export const practicalGuides = [
     slug: 'preparer-son-ramonage',
     title: 'Comment se déroule une intervention de ramonage ?',
     category: 'ramonage-entretien',
-    image: 'outillage',
     intent: 'Préparer la venue et comprendre les étapes sans procédure de bricolage.',
     intro:
       'Une intervention se prépare par l’identification de l’appareil, des accès et du périmètre. Elle comprend l’action mécanique adaptée au conduit, le traitement des résidus et la restitution des observations. Le déroulement concret dépend de la configuration.',
@@ -135,7 +132,6 @@ export const practicalGuides = [
     slug: 'quand-faire-ramoner',
     title: 'Quand faire ramoner sa cheminée ou son poêle ?',
     category: 'ramonage-entretien',
-    image: 'cheminee',
     intent: 'Organiser un calendrier lié à la dernière opération et à l’usage.',
     intro:
       'Choisissez la période à partir de la dernière attestation, des délais réglementaires et des éventuelles prescriptions locales. Avant une reprise après une longue inactivité, vérifiez les conditions prévues par R1331-71 ; ne vous fiez pas seulement à la saison.',
@@ -178,7 +174,6 @@ export const practicalGuides = [
     slug: 'choisir-ramoneur',
     title: 'Comment choisir un ramoneur qualifié ?',
     category: 'questions-pratiques',
-    image: 'outillage',
     intent: 'Vérifier identité, qualification et périmètre sans faux labels.',
     intro:
       'Vérifiez l’identité du prestataire, la qualification professionnelle de la personne qui intervient et le détail du devis. Un annuaire, un logo ou une promesse d’attestation ne remplacent pas ces vérifications.',
@@ -193,7 +188,7 @@ export const practicalGuides = [
       },
       {
         title: 'Une présentation commerciale vérifiable',
-        text: 'Comparez les informations données avec les documents disponibles. Une qualification ou assurance doit correspondre à l’activité réellement concernée. L’entreprise de ce site ne revendique pas encore de titre ni de certification : ces éléments seront présentés uniquement après vérification. Aucun avis client n’est inventé pour compenser cette absence.',
+        text: 'Comparez les informations données avec les documents disponibles. Une qualification ou assurance doit correspondre à l’activité réellement concernée.',
       },
     ],
     example: {
@@ -221,7 +216,6 @@ export const practicalGuides = [
     slug: 'ramonage-entretien-inspection',
     title: 'Ramonage, entretien et inspection : quelles différences ?',
     category: 'ramonage-entretien',
-    image: 'inspection',
     intent: 'Choisir une demande selon l’objectif de l’opération.',
     intro:
       'Le ramonage nettoie mécaniquement le conduit ; l’entretien concerne l’appareil selon son régime et sa notice ; l’inspection recherche des observations dans un périmètre défini. Ces opérations peuvent se compléter, sans être interchangeables.',
@@ -236,7 +230,7 @@ export const practicalGuides = [
       },
       {
         title: 'L’inspection : une question et des limites',
-        text: 'Demandez ce que l’on cherche à observer, quelles parties sont accessibles et quel compte rendu sera fourni. Une caméra n’implique pas à elle seule un essai d’étanchéité ou une certification de conformité. Le matériel et la prise en charge d’un diagnostic sur ce site restent à confirmer avant tout engagement.',
+        text: 'Demandez ce que l’on cherche à observer, quelles parties sont accessibles et quel compte rendu sera fourni. Une caméra n’implique pas à elle seule un essai d’étanchéité ou une certification de conformité.',
       },
     ],
     example: {

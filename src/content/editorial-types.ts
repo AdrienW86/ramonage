@@ -1,3 +1,4 @@
+import guideImages from '@/data/guide-images.json';
 export const categories = [
   {
     slug: 'reglementation',
@@ -45,6 +46,7 @@ export type Guide = {
   intent: string;
   category: Category;
   image: string;
+  imageAlt: string;
   intro: string;
   sections: { title: string; text: string; sourceKeys?: string[] }[];
   example: { title: string; text: string };
@@ -62,6 +64,8 @@ export type Guide = {
 };
 export type GuideInput = Omit<
   Guide,
+  | 'image'
+  | 'imageAlt'
   | 'description'
   | 'author'
   | 'datePublished'
@@ -74,6 +78,7 @@ export type GuideInput = Omit<
   Partial<
     Pick<
       Guide,
+      | 'imageAlt'
       | 'description'
       | 'author'
       | 'datePublished'
@@ -87,7 +92,10 @@ export type GuideInput = Omit<
 export function defineGuide(input: GuideInput): Guide {
   const status = input.status ?? 'valide';
   return {
-    description: input.intro,
+    description:
+      input.intro.length <= 160
+        ? input.intro
+        : input.intro.slice(0, 156).replace(/\s+\S*$/, '') + '…',
     author: null,
     datePublished: null,
     dateVerified: null,
@@ -99,5 +107,7 @@ export function defineGuide(input: GuideInput): Guide {
     cta: 'Préparer une demande adaptée à votre installation',
     status,
     ...input,
+    image: `guides/${input.slug}`,
+    imageAlt: guideImages.find((image) => image.slug === input.slug)?.alt ?? input.title,
   };
 }

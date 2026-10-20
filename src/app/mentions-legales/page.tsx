@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { Breadcrumbs } from '@/components/ui';
 import { company, isPreview } from '@/config/company';
 import { metadata } from '@/lib/seo';
@@ -8,58 +9,44 @@ export const generateMetadata = () =>
     '/mentions-legales',
   );
 export default function Page() {
+  if (isPreview()) notFound();
   return (
     <div className="container">
       <Breadcrumbs items={[{ label: 'Mentions légales', href: '/mentions-legales' }]} />
       <div className="page-intro">
         <h1>Mentions légales.</h1>
-        {isPreview() && (
-          <p className="notice">
-            Document préparatoire à compléter et relire. La publication commerciale est bloquée tant
-            que la configuration n’est pas validée.
-          </p>
-        )}
       </div>
       <article className="prose" style={{ maxWidth: 800, paddingBottom: 80 }}>
         <h2>Éditeur du site</h2>
         <p>
           Nom commercial : {company.name}
           <br />
-          Raison sociale : {company.legalName || 'À compléter'}
+          Raison sociale : {company.legalName}
           <br />
-          Forme juridique : {company.legalStatus || 'À compléter'}
+          Forme juridique : {company.legalStatus}
           <br />
-          SIREN : {company.siren || 'À compléter'}
+          SIREN : {company.siren}
           <br />
-          SIRET : {company.siret || 'À compléter'}
+          SIRET : {company.siret}
           <br />
           Adresse :{' '}
-          {company.address.street
-            ? `${company.address.street}, ${company.address.postalCode} ${company.address.city}`
-            : 'À compléter'}
+          {`${company.address.street}, ${company.address.postalCode} ${company.address.city}`}
           <br />
-          Téléphone : {company.phone || 'À compléter'}
+          Téléphone : {company.phone}
           <br />
-          Email : {company.email || 'À compléter'}
+          Email : {company.email}
           <br />
-          Directeur de publication : {company.publishingDirector || 'À compléter'}
+          Directeur de publication : {company.publishingDirector}
         </p>
-        <h2>Hébergement prévu</h2>
+        <h2>Hébergement</h2>
         <p>
-          Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis.{' '}
-          <a href="https://vercel.com/legal/privacy-policy">Informations de l’hébergeur</a>. Cette
-          mention doit être adaptée si un autre hébergeur est choisi.
+          {company.hosting.name}, {company.hosting.address}.{' '}
+          <a href={company.hosting.url}>Contacter l’hébergeur</a>.
         </p>
         <h2>Médiation de la consommation</h2>
         <p>
-          {company.mediator.name ? (
-            <>
-              Médiateur désigné : {company.mediator.name}.{' '}
-              <a href={company.mediator.url}>Modalités de saisine</a>.
-            </>
-          ) : (
-            'Coordonnées du médiateur à compléter avant publication, après vérification de l’adhésion effective de l’entreprise.'
-          )}
+          Médiateur désigné : {company.mediator.name}.{' '}
+          <a href={company.mediator.url}>Modalités de saisine</a>.
         </p>
         <h2>Prestations et devis</h2>
         <p>

@@ -5,7 +5,6 @@ export const regulationGuides = [
     slug: 'obligations-et-frequence',
     title: 'Le ramonage est-il obligatoire en 2026 ?',
     category: 'reglementation',
-    image: 'cheminee',
     intent: 'Comprendre le socle national et les vérifications locales.',
     featured: true,
     intro:
@@ -51,7 +50,6 @@ export const regulationGuides = [
     slug: 'frequence-ramonage',
     title: 'Combien de ramonages faut-il effectuer par an ?',
     category: 'reglementation',
-    image: 'conduit',
     intent: 'Distinguer fréquence individuelle, collective et périodes sans utilisation.',
     intro:
       'Il n’existe pas un nombre unique valable pour tous les conduits. Le Code prévoit au moins tous les douze mois pour les appareils individuels et tous les six mois pour les collectifs, avec exceptions et prescriptions locales à vérifier.',
@@ -96,7 +94,6 @@ export const regulationGuides = [
     slug: 'ramonage-proprietaire-locataire',
     title: 'Qui organise et paie le ramonage : propriétaire ou locataire ?',
     category: 'reglementation',
-    image: 'insert',
     intent: 'Identifier l’initiative de l’entretien sans confondre responsabilité et facturation.',
     intro:
       'Pour un appareil individuel, l’initiative revient en principe à l’occupant, sauf stipulation contraire du bail. Pour le collectif, elle relève du propriétaire, du syndicat des copropriétaires ou de l’exploitant prévu par convention. La répartition financière doit être examinée avec le bail et le régime des charges.',
@@ -139,7 +136,6 @@ export const regulationGuides = [
     slug: 'attestation-ramonage',
     title: 'À quoi sert l’attestation de ramonage ?',
     category: 'reglementation',
-    image: 'outillage',
     intent: 'Comprendre la preuve de l’intervention et ses limites.',
     featured: true,
     intro:
@@ -155,7 +151,7 @@ export const regulationGuides = [
       },
       {
         title: 'Ne pas lui faire dire davantage',
-        text: 'Une attestation de ramonage ne prouve pas à elle seule un essai d’étanchéité, un diagnostic complet de conformité ou la résolution d’un refoulement. Demandez une évaluation complémentaire lorsque le problème dépasse l’entretien courant. La délivrance de documents par l’entreprise de ce site reste à confirmer avec ses qualifications et ses prestations.',
+        text: 'Une attestation de ramonage ne prouve pas à elle seule un essai d’étanchéité, un diagnostic complet de conformité ou la résolution d’un refoulement. Demandez une évaluation complémentaire lorsque le problème dépasse l’entretien courant.',
       },
     ],
     example: {
@@ -183,7 +179,6 @@ export const regulationGuides = [
     slug: 'risques-sans-ramonage',
     title: 'Que risque-t-on sans ramonage ?',
     category: 'reglementation',
-    image: 'conduit',
     intent: 'Différencier obligation, sécurité et assurance sans sanction inventée.',
     intro:
       'L’absence de ramonage vous prive d’une opération obligatoire de nettoyage et de contrôle de vacuité. Elle pose aussi un problème de preuve en cas de litige. Les suites administratives, la responsabilité et l’indemnisation d’un sinistre s’apprécient dans leurs cadres respectifs.',
@@ -226,7 +221,6 @@ export const regulationGuides = [
     slug: 'ramoner-soi-meme',
     title: 'Peut-on ramoner sa cheminée soi-même ?',
     category: 'reglementation',
-    image: 'cheminee',
     intent: 'Distinguer nettoyage domestique et ramonage réglementaire.',
     intro:
       'Le nettoyage courant accessible à l’utilisateur ne remplace pas le ramonage réglementaire. Celui-ci doit être réalisé par une personne professionnellement qualifiée conformément à l’article R1331-74. Posséder un hérisson ou acheter une bûche chimique ne suffit pas à satisfaire cette exigence.',
@@ -269,7 +263,6 @@ export const regulationGuides = [
     slug: 'ramonage-assurance',
     title: 'Ramonage et assurance habitation : quels documents garder ?',
     category: 'reglementation',
-    image: 'insert',
     intent: 'Constituer un dossier sans promettre une couverture contractuelle.',
     intro:
       'Conservez l’attestation, la facture et les observations du professionnel. Le contrat d’assurance précise les garanties et les démarches après sinistre : aucun article général ne peut garantir une indemnisation ou un refus automatique en l’absence d’un document.',

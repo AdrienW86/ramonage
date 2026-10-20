@@ -8,6 +8,17 @@ export type EditorialSource = {
   limitation?: string;
 };
 export const sources: Record<string, EditorialSource> = {
+  aqcBistre: {
+    title: 'Incendies par feu de cheminée : comment les éviter ? — fiche n° 5, janvier 2024',
+    url: 'https://www.inc-conso.fr/sites/default/files/files/pdf/fi-prevention-risques-habitation-05-incendies-feu-cheminee-aqc.pdf',
+    publisher: 'Agence Qualité Construction / INC',
+    checkedAt: '2026-10-17',
+    access: 'full',
+    scope:
+      'Dépôts de condensats, facteurs de formation, prévention et distinction du débistrage, pages 1 à 3.',
+    limitation:
+      'Référence technique de prévention, pas source de fréquence légale actuelle. Les mentions générales de deux ramonages par an et les délais fixes de séchage ne sont pas repris comme obligations nationales.',
+  },
   publicHealth: {
     title: 'Intoxications au monoxyde de carbone : adopter les bons gestes',
     url: 'https://www.santepubliquefrance.fr/presse/intoxications-au-monoxyde-de-carbone-adopter-les-bons-gestes-peut-sauver-des-vies',

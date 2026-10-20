@@ -16,41 +16,31 @@ export default function Page() {
         <div className="page-intro">
           <p className="eyebrow">FAISONS LE POINT</p>
           <h1>
-            Un premier échange.
+            Les bonnes questions.
             <br />
             <em>Un besoin mieux défini.</em>
           </h1>
           <p>
-            Précisez votre appareil et votre commune. La prestation, la desserte et les conditions
-            seront à confirmer avant tout rendez-vous.
+            Identifiez votre appareil et rassemblez les documents d’entretien pour expliquer votre
+            besoin à un professionnel.
           </p>
         </div>
         <div className="contact-options">
+          {company.phone && (
+            <div>
+              <h2>Par téléphone</h2>
+              <a href={`tel:${company.phone.replace(/[^+\d]/g, '')}`}>{company.phone}</a>
+            </div>
+          )}
+          {company.email && (
+            <div>
+              <h2>Par email</h2>
+              <a href={`mailto:${company.email}`}>{company.email}</a>
+            </div>
+          )}
           <div>
-            <h2>Par téléphone</h2>
-            {company.phone ? (
-              <a href={`tel:${company.phone.replace(/[^+\d]/g, '')}`} data-track="clic_telephone">
-                {company.phone}
-              </a>
-            ) : (
-              <p>Téléphone à renseigner avant ouverture du site.</p>
-            )}
-          </div>
-          <div>
-            <h2>Par email</h2>
-            {company.email ? (
-              <a href={`mailto:${company.email}`} data-track="clic_email">
-                {company.email}
-              </a>
-            ) : (
-              <p>Email à renseigner avant ouverture du site.</p>
-            )}
-          </div>
-          <div>
-            <h2>Votre demande</h2>
-            <Link className="text-link" href="/devis" data-track="clic_devis">
-              Préparer un devis ↗
-            </Link>
+            <h2>Comprendre votre besoin</h2>
+            <Link href="/questions-frequentes">Consulter les questions fréquentes ↗</Link>
           </div>
         </div>
         <section className="prose" style={{ paddingBottom: 70 }}>
@@ -60,21 +50,20 @@ export default function Page() {
             dernier entretien. Signalez les accès particuliers sans prendre de risque pour les
             inspecter.
           </p>
-          <h2>Adresse et horaires</h2>
-          <p>
-            {company.address.street
-              ? `${company.address.street}, ${company.address.postalCode} ${company.address.city}`
-              : 'Adresse professionnelle à compléter. Aucun accueil physique n’est annoncé.'}
-          </p>
-          {company.commercial.showHours && company.hours.length ? (
+          {company.address.street && (
+            <>
+              <h2>Adresse professionnelle</h2>
+              <p>
+                {company.address.street}, {company.address.postalCode} {company.address.city}
+              </p>
+            </>
+          )}
+          {company.commercial.showHours &&
             company.hours.map((h) => (
               <p key={h.day}>
                 {h.day} : {h.opens} – {h.closes}
               </p>
-            ))
-          ) : (
-            <p>Horaires non encore confirmés.</p>
-          )}
+            ))}
         </section>
       </div>
       <CTA />

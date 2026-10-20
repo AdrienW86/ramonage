@@ -1,4 +1,4 @@
-import { it, expect, vi, afterEach } from 'vitest';
+﻿import { it, expect, vi, afterEach } from 'vitest';
 import { POST } from '@/app/api/devis/route';
 import { GET } from '@/app/api/communes/route';
 import { quoteSchema } from '@/lib/quote-schema';
@@ -71,6 +71,12 @@ it('teste le succès Resend avec des dépendances simulées uniquement', async (
     phone: '0612345678',
     email: 'contact@ramonage-domaine.fr',
     address: { street: 'Adresse validée', postalCode: '66000', city: 'Perpignan' },
+    hosting: {
+      name: 'Hébergeur validé',
+      address: 'Adresse hébergeur validée',
+      url: 'https://hebergeur.fr',
+    },
+    privacyRetention: 'Durée validée pour la simulation',
     publishingDirector: 'Direction validée',
     mediator: { name: 'Médiateur validé', url: 'https://mediateur.fr' },
     publishingApproved: true,

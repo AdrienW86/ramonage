@@ -8,12 +8,8 @@ const routes = [
   '/conseils',
   '/contact',
   '/devis',
-  '/mentions-legales',
-  '/confidentialite',
   '/ramonage/aude',
   '/ramonage/pyrenees-orientales',
-  '/ramonage/perpignan',
-  '/ramonage/narbonne',
   '/prestations/ramonage-cheminee',
   '/prestations/ramonage-poele-bois',
   '/prestations/ramonage-poele-granules',
@@ -34,6 +30,9 @@ test('routes, titres, canonicals et maillage interne', async ({ page, request })
     const res = await page.goto(route);
     expect(res?.status(), route).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
+    expect(await page.locator('body').innerText()).not.toMatch(
+      /à compléter|en attente|provisoire|non publiée|non attribué|en préparation|brouillon|à définir|publication à approuver|desserte à confirmer/i,
+    );
     const title = await page.title();
     expect(titles.has(title), title).toBe(false);
     titles.add(title);
@@ -54,23 +53,29 @@ test('routes, titres, canonicals et maillage interne', async ({ page, request })
     expect(response.status(), href).toBeLessThan(400);
   }
 });
-test('recherche commune au clavier et préremplissage', async ({ page }) => {
+test('recherche commune au clavier et répertoire sans offre non validée', async ({ page }) => {
   await page.goto('/');
   const input = page.getByRole('combobox');
   await input.fill('66000');
   await expect(page.getByRole('option')).toContainText('Perpignan');
   await input.press('ArrowDown');
   await input.press('Enter');
-  await expect(page).toHaveURL(/devis\?commune=Perpignan/);
-  await expect(page.getByLabel('Commune *', { exact: true })).toHaveValue('Perpignan');
-  await expect(page.getByLabel('Code postal *', { exact: true })).toHaveValue('66000');
-  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeDisabled();
+  await expect(page).toHaveURL(/zones-intervention\?q=Perpignan/);
+  await expect(page.locator('.commune-list')).toContainText('Perpignan');
+  await expect(page.locator('form[aria-label="Demande de devis"]')).toHaveCount(0);
 });
 test('répertoire filtrable et pages non publiées', async ({ page, request }) => {
   await page.goto('/zones-intervention?departement=11&q=narbonne');
   await expect(page.locator('.commune-list')).toContainText('Narbonne');
   await expect(page.locator('.commune-list>a')).toHaveCount(1);
-  expect((await request.get('/ramonage/carcassonne')).status()).toBe(404);
+  for (const route of [
+    '/ramonage/carcassonne',
+    '/ramonage/perpignan',
+    '/ramonage/narbonne',
+    '/mentions-legales',
+    '/confidentialite',
+  ])
+    expect((await request.get(route)).status(), route).toBe(404);
   expect((await request.get('/route-inexistante')).status()).toBe(404);
   const robots = await request.get('/robots.txt');
   expect(await robots.text()).toContain('Disallow: /');
@@ -113,7 +118,5 @@ test('navigation mobile et FAQ', async ({ page }, info) => {
   }
   const question = page.locator('summary').filter({ hasText: 'Quel est le prix d’un ramonage ?' });
   await question.click();
-  await expect(
-    page.getByText('Aucun tarif n’est encore confirmé.', { exact: false }),
-  ).toBeVisible();
+  await expect(page.getByText('Un devis doit préciser le prix', { exact: false })).toBeVisible();
 });

@@ -118,7 +118,7 @@ export default async function Page({
               items={[
                 {
                   q: 'Comment les guides sont-ils vérifiés ?',
-                  a: 'Chaque guide identifie ses sources, sa date de vérification documentaire et ses limites. Les contenus techniques ou locaux insuffisamment vérifiés restent en préparation. Aucun auteur professionnel fictif n’est présenté.',
+                  a: 'Chaque guide indique ses sources et sa date de vérification documentaire. Consultez les textes cités et la notice de votre appareil ; les informations générales ne suffisent pas à évaluer une installation.',
                 },
                 {
                   q: 'Un guide remplace-t-il un diagnostic ?',

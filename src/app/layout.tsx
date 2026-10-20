@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { company, isPreview } from '@/config/company';
+import { company, isPreview, siteTitle, canRequestQuote } from '@/config/company';
 import { Header } from '@/components/navigation';
 import { Brand, JsonLd } from '@/components/ui';
 import { AnalyticsConsent } from '@/components/analytics';
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(company.url),
   title: {
     default: 'Ramonage dans l’Aude et les Pyrénées-Orientales',
-    template: `%s | ${company.name}`,
+    template: `%s | ${siteTitle}`,
   },
   description: company.description,
   robots: { index: !isPreview(), follow: !isPreview() },
@@ -24,23 +24,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#contenu" className="skip-link">
           Aller au contenu
         </a>
-        {isPreview() && (
-          <div className="preview-bar">
-            VERSION DE PRÉPARATION{' '}
-            <span>· Identité, prestations et desserte à confirmer · Non indexable</span>
-          </div>
-        )}
         <Header
-          name={company.name}
+          name={siteTitle}
           phone={company.commercial.callsEnabled ? company.phone : ''}
           logo={company.logo}
+          quoteEnabled={canRequestQuote()}
         />
         <main id="contenu">{children}</main>
         <footer>
           <div className="footer-top">
             <div>
               <Link href="/">
-                <Brand name={company.name} />
+                <Brand name={siteTitle} />
               </Link>
               <p>
                 Le soin du conduit.
@@ -57,14 +52,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/contact">Contact</Link>
             </div>
             <div>
-              <h2>Nos territoires</h2>
+              <h2>Les territoires</h2>
               <Link href="/ramonage/aude">L’Aude · 11</Link>
               <Link href="/ramonage/pyrenees-orientales">Les Pyrénées-Orientales · 66</Link>
               <Link href="/zones-intervention">Toutes les communes</Link>
-              <p className="muted">Couverture à confirmer selon commune.</p>
             </div>
             <div>
-              <h2>Parlons de votre projet</h2>
+              <h2>Les bons repères</h2>
               {company.phone && (
                 <a href={`tel:${company.phone.replace(/[^+\d]/g, '')}`} data-track="clic_telephone">
                   {company.phone}
@@ -75,9 +69,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   {company.email}
                 </a>
               )}
-              <Link href="/devis" data-track="clic_devis">
-                Préparer ma demande <ArrowUpRight size={16} />
-              </Link>
+              {canRequestQuote() && (
+                <Link href="/devis" data-track="clic_devis">
+                  Demander un devis <ArrowUpRight size={16} />
+                </Link>
+              )}
+              <Link href="/questions-frequentes">Trouver une réponse</Link>
               {company.commercial.showHours &&
                 company.hours.map((h) => (
                   <p key={h.day}>
@@ -93,11 +90,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
           <div className="footer-bottom">
             <span>
-              © {new Date().getFullYear()} {company.name}
+              © {new Date().getFullYear()} {siteTitle}
             </span>
             <div>
-              <Link href="/mentions-legales">Mentions légales</Link>
-              <Link href="/confidentialite">Confidentialité</Link>
+              {!isPreview() && <Link href="/mentions-legales">Mentions légales</Link>}
+              {!isPreview() && <Link href="/confidentialite">Confidentialité</Link>}
             </div>
             <span>Photographies d’illustration générées par IA</span>
           </div>

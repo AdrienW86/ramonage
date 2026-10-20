@@ -12,6 +12,10 @@ test('catalogue de 35 guides et 7 catégories : contenu HTML, sources et liens',
   const links = new Set<string>();
   for (const slug of slugs) {
     const res = await page.goto(`/conseils/${slug}`);
+    if (['reglementation-aude', 'reglementation-pyrenees-orientales'].includes(slug)) {
+      expect(res?.status(), slug).toBe(404);
+      continue;
+    }
     expect(res?.status(), slug).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
     const title = await page.title();
@@ -21,7 +25,16 @@ test('catalogue de 35 guides et 7 catégories : contenu HTML, sources et liens',
       'href',
       `http://localhost:3000/conseils/${slug}`,
     );
-    await expect(page.locator('.article-meta')).toContainText('non publiée');
+    await expect(page.locator('.article-meta')).toContainText('Vérification documentaire');
+    expect(await page.locator('body').innerText()).not.toMatch(
+      /à compléter|en attente|provisoire|non publiée|non attribué|en préparation|brouillon|publication à approuver/i,
+    );
+    const hero = page.locator('.interior-hero img');
+    await expect(hero).toHaveAttribute('alt', /.+/);
+    await hero.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() => hero.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0))
+      .toBe(true);
     await expect(page.locator('#sources-article a')).not.toHaveCount(0);
     await expect(page.locator('#questions-article details')).toHaveCount(2);
     expect(await page.locator('article').innerText()).not.toContain('undefined');
@@ -40,7 +53,7 @@ test('catalogue de 35 guides et 7 catégories : contenu HTML, sources et liens',
 });
 test('recherche articles, catégories et état vide', async ({ page }) => {
   await page.goto('/conseils');
-  await expect(page.locator('#catalogue .guide-card')).toHaveCount(35);
+  await expect(page.locator('#catalogue .guide-card')).toHaveCount(33);
   await page.getByLabel('Votre sujet ou votre question').fill('attestation');
   await page.getByRole('button', { name: 'Rechercher', exact: true }).click();
   await expect(page).toHaveURL(/q=attestation/);
@@ -75,19 +88,17 @@ test('guide → devis : référence autorisée, aucune donnée personnelle de tr
     if (r.url().includes('/_vercel/')) analytics.push(r.url());
   });
   await page.goto('/conseils/attestation-ramonage');
-  await page
-    .locator('.aside-card')
-    .getByRole('link', { name: 'Préparer ma demande', exact: false })
-    .click();
-  await expect(page).toHaveURL(/devis\?article=attestation-ramonage/);
-  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toBeDisabled();
+  await expect(page.locator('a[href^="/devis"]')).toHaveCount(0);
+  await page.goto('/devis?article=attestation-ramonage');
+  await expect(page.getByRole('form', { name: 'Demande de devis' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Envoyer ma demande' })).toHaveCount(0);
   expect(analytics).toEqual([]);
 });
 test('nouveaux écrans : accessibilité et responsive', async ({ page }, info) => {
   for (const route of [
     '/conseils',
     '/conseils/attestation-ramonage',
-    '/conseils/reglementation-aude',
+    '/conseils/formation-bistre',
     '/questions-frequentes',
     '/conseils/categorie/poeles',
   ]) {

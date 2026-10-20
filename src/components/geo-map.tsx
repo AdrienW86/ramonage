@@ -46,7 +46,7 @@ export function GeoMap() {
           REPÈRES GÉOGRAPHIQUES · 11 & 66
         </text>
         <text x="32" y="345" fontFamily="Arial" fontSize="9" fill="#565952">
-          Centres des communes · API Géo · Desserte à confirmer
+          Centres des communes · API Géo · Répertoire géographique
         </text>
         <path d="M478 74V40m0 0-5 10m5-10 5 10" fill="none" stroke="#82512c" />
         <text x="474" y="32" fontFamily="Arial" fontSize="10">

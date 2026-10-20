@@ -6,17 +6,15 @@ import { Breadcrumbs, CTA, Faq, Photo } from '@/components/ui';
 import { CommuneSearch } from '@/components/commune-search';
 import { communeBySlug, communes, departments, isLocalPublished, nearestCommunes } from '@/lib/geo';
 import { localEditorial } from '@/content/local';
-import { isPreview } from '@/config/company';
+
 import { metadata } from '@/lib/seo';
 export const generateStaticParams = () => [
   ...departments.map((d) => ({ ville: d.slug })),
-  ...communes
-    .filter((c) => (isPreview() ? !!localEditorial[c.insee] : isLocalPublished(c)))
-    .map((c) => ({ ville: c.slug })),
+  ...communes.filter((c) => isLocalPublished(c)).map((c) => ({ ville: c.slug })),
 ];
 function available(slug: string) {
   const c = communeBySlug.get(slug);
-  return c && (isLocalPublished(c) || (isPreview() && !!localEditorial[c.insee])) ? c : null;
+  return c && isLocalPublished(c) ? c : null;
 }
 export async function generateMetadata({ params }: { params: Promise<{ ville: string }> }) {
   const { ville } = await params;
@@ -24,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ ville: st
   if (d)
     return metadata(
       `Ramonage dans ${d.code === '11' ? 'l’Aude' : 'les Pyrénées-Orientales'}`,
-      `Préparez votre entretien de conduit dans le département ${d.code}. Communes du référentiel officiel et desserte à confirmer autour de ${d.pole}.`,
+      `Préparez votre entretien de conduit dans le département ${d.code}. Communes et codes postaux du référentiel officiel autour de ${d.pole}.`,
       `/ramonage/${ville}`,
     );
   const c = available(ville);
@@ -64,8 +62,8 @@ export default async function Page({ params }: { params: Promise<{ ville: string
                 <em>{dep.code === '11' ? 'l’Aude.' : 'les Pyrénées-Orientales.'}</em>
               </h1>
               <p>
-                Autour de {dep.pole}, préparez votre entretien de cheminée, poêle ou conduit. Chaque
-                commune et chaque prestation font l’objet d’une confirmation avant rendez-vous.
+                Autour de {dep.pole}, préparez votre entretien de cheminée, poêle ou conduit. Le
+                répertoire rassemble les communes et codes postaux du département.
               </p>
               <CommuneSearch compact />
             </div>
@@ -101,7 +99,10 @@ export default async function Page({ params }: { params: Promise<{ ville: string
               <h2>
                 {communes.filter((c) => c.department === dep.code).length} communes référencées.
               </h2>
-              <p>Données officielles API Géo. La couverture commerciale reste à confirmer.</p>
+              <p>
+                Données officielles API Géo. Le répertoire ne constitue pas une offre
+                d’intervention.
+              </p>
               <Link href={`/zones-intervention?departement=${dep.code}`} className="button">
                 Voir toutes les communes ↗
               </Link>
@@ -116,14 +117,14 @@ export default async function Page({ params }: { params: Promise<{ ville: string
                 href={
                   isLocalPublished(c)
                     ? `/ramonage/${c.slug}`
-                    : `/devis?commune=${encodeURIComponent(c.name)}&codePostal=${c.postalCodes[0] || ''}`
+                    : `/zones-intervention?q=${encodeURIComponent(c.name)}`
                 }
               >
                 <span>
                   {c.name}
                   <small>
                     {c.postalCodes.join(', ')} ·{' '}
-                    {c.coverageConfirmed ? 'Desserte confirmée' : 'Desserte à confirmer'}
+                    {c.coverageConfirmed ? 'Desserte confirmée' : 'Commune référencée'}
                   </small>
                 </span>
                 <span aria-hidden="true">↗</span>
@@ -145,7 +146,7 @@ export default async function Page({ params }: { params: Promise<{ ville: string
   const content = localEditorial[c.insee];
   const depInfo = departments.find((d) => d.code === c.department)!;
   const neighbors = nearestCommunes(c);
-  const href = `/devis?commune=${encodeURIComponent(c.name)}&codePostal=${c.postalCodes[0] || ''}`;
+  const href = `/zones-intervention?q=${encodeURIComponent(c.name)}`;
   return (
     <>
       <div className="container">
@@ -163,11 +164,6 @@ export default async function Page({ params }: { params: Promise<{ ville: string
               <br />à <em>{c.name}.</em>
             </h1>
             <p>{content.intro}</p>
-            {!isLocalPublished(c) && (
-              <p className="notice">
-                Brouillon éditorial non indexable. Desserte et contenu à valider avant publication.
-              </p>
-            )}
             <Link href={href} className="button" data-track="clic_devis">
               Une demande à {c.name} ↗
             </Link>
@@ -236,7 +232,7 @@ export default async function Page({ params }: { params: Promise<{ ville: string
             />
             <div className="sources">
               Données géographiques : <a href={content.source}>API Géo — {c.name}</a> · Relecture
-              préparatoire : {content.reviewedAt}
+              documentaire : {content.reviewedAt}
             </div>
             <RelatedResources department={c.department} />
           </article>
@@ -262,7 +258,7 @@ export default async function Page({ params }: { params: Promise<{ ville: string
             >
               <span>
                 {n.name}
-                <small>{n.coverageConfirmed ? 'Desserte confirmée' : 'Desserte à confirmer'}</small>
+                <small>{n.coverageConfirmed ? 'Desserte confirmée' : 'Commune référencée'}</small>
               </span>
               ↗
             </Link>

@@ -5,6 +5,7 @@ import { faqEntries } from '@/content/faq';
 import { company } from '@/config/company';
 import {
   editorialIssues,
+  accessibleGuide,
   isGuidePublished,
   isGuideValidated,
   articleSchema,
@@ -28,10 +29,29 @@ describe('Catalogue éditorial', () => {
     expect(editorialIssues()).toEqual([]);
   });
   it('distingue vérification documentaire et publication', () => {
-    expect(guides.filter(isGuideValidated)).toHaveLength(27);
+    expect(guides.filter(isGuideValidated)).toHaveLength(33);
     expect(guides.filter(isGuidePublished)).toHaveLength(0);
     expect(guides.every((g) => g.author === null && g.datePublished === null)).toBe(true);
-    expect(guides.filter((g) => !isGuideValidated(g))).toHaveLength(8);
+    expect(guides.filter((g) => !isGuideValidated(g))).toHaveLength(2);
+  });
+  it('masque les deux guides locaux incomplets même en consultation locale', () => {
+    expect(accessibleGuide('reglementation-aude')).toBeUndefined();
+    expect(accessibleGuide('reglementation-pyrenees-orientales')).toBeUndefined();
+    expect(accessibleGuide('formation-bistre')?.slug).toBe('formation-bistre');
+  });
+  it('refuse une source de section ou FAQ non consultée', () => {
+    expect(
+      isGuideValidated({
+        ...guides[0],
+        sections: [{ title: 'Section', text: 'Texte', sourceKeys: ['bistre'] }],
+      }),
+    ).toBe(false);
+    expect(
+      isGuideValidated({
+        ...guides[0],
+        faq: [{ q: 'Question', a: 'Réponse', sourceKeys: ['po'] }],
+      }),
+    ).toBe(false);
   });
   it('dispose de sections, exemples, FAQ, intentions et liens utiles', () => {
     for (const g of guides) {
@@ -78,6 +98,12 @@ describe('Données structurées et publication', () => {
       phone: '0612345678',
       email: 'contact@ramonage-valide.fr',
       address: { street: 'Adresse validée', postalCode: '66000', city: 'Perpignan' },
+      hosting: {
+        name: 'Hébergeur validé',
+        address: 'Adresse hébergeur validée',
+        url: 'https://hebergeur.fr',
+      },
+      privacyRetention: 'Durée validée pour la simulation',
       publishingDirector: 'Direction validée',
       mediator: { name: 'Médiateur validé', url: 'https://mediateur.fr' },
       publishingApproved: true,

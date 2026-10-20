@@ -22,7 +22,7 @@ try {
       report.push({ width, path, fits, errors: [...errors] });
       if (!fits || errors.length) throw new Error(JSON.stringify(report.at(-1)));
       if ((width === 360 || width === 1440) && path !== '/')
-        await page.screenshot({ path: `artifacts/phase2-${width}-${path.split('/').at(-1)}.png` });
+        await page.screenshot({ path: `artifacts/phase3-${width}-${path.split('/').at(-1)}.png` });
     }
     await page.close();
   }

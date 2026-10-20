@@ -2,13 +2,13 @@ import { z } from 'zod';
 
 // Source unique : aucune coordonnée n'est recopiée dans les composants.
 export const company = {
-  name: process.env.NEXT_PUBLIC_COMPANY_NAME || 'Nom commercial à définir',
+  name: process.env.NEXT_PUBLIC_COMPANY_NAME || '',
   legalName: process.env.COMPANY_LEGAL_NAME || '',
   legalStatus: process.env.COMPANY_LEGAL_STATUS || '',
   siren: process.env.COMPANY_SIRET?.slice(0, 9) || '',
   siret: process.env.COMPANY_SIRET || '',
   logo: null as string | null,
-  description: 'Ramonage et entretien des conduits dans l’Aude et les Pyrénées-Orientales.',
+  description: 'Guides sur le ramonage, l’entretien des appareils et la sécurité des conduits.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   phone: process.env.NEXT_PUBLIC_PHONE || '',
   email: process.env.NEXT_PUBLIC_EMAIL || '',
@@ -31,6 +31,12 @@ export const company = {
     callsEnabled: !!process.env.NEXT_PUBLIC_PHONE,
   },
   quoteRecipient: process.env.QUOTE_TO || '',
+  hosting: {
+    name: process.env.HOSTING_NAME || '',
+    address: process.env.HOSTING_ADDRESS || '',
+    url: process.env.HOSTING_URL || '',
+  },
+  privacyRetention: process.env.PRIVACY_RETENTION_POLICY || '',
   publishingDirector: process.env.COMPANY_PUBLISHING_DIRECTOR || '',
   mediator: {
     name: process.env.COMPANY_MEDIATOR_NAME || '',
@@ -60,6 +66,8 @@ export const companySchema = z.object({
   phone: z.string().regex(/^\+?[\d\s().-]{10,20}$/),
   email: z.email(),
   address: z.object({ street: required, postalCode: z.string().regex(/^\d{5}$/), city: required }),
+  hosting: z.object({ name: required, address: required, url: z.url() }),
+  privacyRetention: required,
   publishingDirector: required,
   mediator: z.object({ name: required, url: z.url() }),
   publishingApproved: z.literal(true),
@@ -74,3 +82,6 @@ export function configurationIssues() {
 }
 export const isPublicReady = () => configurationIssues().length === 0;
 export const isPreview = () => !isPublicReady();
+
+export const siteTitle = company.name || 'Le soin du conduit';
+export const canRequestQuote = () => isPublicReady() && company.commercial.formEnabled;

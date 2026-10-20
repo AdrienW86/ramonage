@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui';
 import { company, isPreview } from '@/config/company';
@@ -9,23 +10,17 @@ export const generateMetadata = () =>
     '/confidentialite',
   );
 export default function Page() {
+  if (isPreview()) notFound();
   return (
     <div className="container">
       <Breadcrumbs items={[{ label: 'Confidentialité', href: '/confidentialite' }]} />
       <div className="page-intro">
         <h1>Votre confidentialité.</h1>
-        {isPreview() && (
-          <p className="notice">
-            Politique préparatoire. Responsable et organisation de la conservation à confirmer avant
-            ouverture du formulaire.
-          </p>
-        )}
       </div>
       <article className="prose" style={{ maxWidth: 800, paddingBottom: 80 }}>
         <h2>Responsable du traitement</h2>
         <p>
-          {company.legalName || 'Identité du responsable à compléter'}. Pour exercer vos droits :{' '}
-          {company.email || 'adresse email à compléter'}. Voir les{' '}
+          {company.legalName}. Pour exercer vos droits : {company.email}. Voir les{' '}
           <Link href="/mentions-legales">mentions légales</Link>.
         </p>
         <h2>Demande de devis</h2>
@@ -44,26 +39,16 @@ export default function Page() {
         </p>
         <h2>Destinataires et sous-traitants</h2>
         <p>
-          Les demandes sont destinées aux personnes habilitées de l’entreprise. L’hébergement prévu
-          est Vercel, la transmission d’email utilise Resend et la limitation des abus utilise un
-          service Redis partagé. Vérifier les contrats de sous-traitance, lieux de traitement,
-          garanties de transfert hors Espace économique européen et durées techniques avant
-          activation.
+          Les demandes sont destinées aux personnes habilitées de l’entreprise et transmises par
+          email avec Resend.
         </p>
         <h2>Conservation</h2>
-        <p>
-          La politique prévue est la suppression des demandes sans suite au plus tard douze mois
-          après le dernier échange, sauf justification documentée. Les données devenues
-          contractuelles suivent les durées légales applicables. Cette suppression doit être
-          organisée dans la messagerie et les éventuels outils de gestion ; le site ne la réalise
-          pas automatiquement.
-        </p>
+        <p>{company.privacyRetention}</p>
         <h2>Protection contre les abus</h2>
         <p>
           Un identifiant calculé par hachage de l’adresse IP sert à limiter les demandes. Il expire
           après quinze minutes dans le système de limitation. Le site ne journalise pas le contenu
-          des formulaires dans ses logs applicatifs. Les journaux techniques des prestataires
-          doivent être paramétrés séparément.
+          des formulaires dans ses logs applicatifs.
         </p>
         <h2>Mesure d’audience et de performance</h2>
         <p>

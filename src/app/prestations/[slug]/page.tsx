@@ -3,7 +3,7 @@ import { RelatedResources } from '@/components/related-resources';
 import { notFound, redirect } from 'next/navigation';
 import { Breadcrumbs, CTA, Faq, JsonLd, Photo } from '@/components/ui';
 import { services, visibleServices, serviceConfirmed } from '@/content/services';
-import { company, isPreview } from '@/config/company';
+import { company, isPreview, canRequestQuote } from '@/config/company';
 import { metadata } from '@/lib/seo';
 export const generateStaticParams = () => visibleServices().map((s) => ({ slug: s.slug }));
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -38,15 +38,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <p className="eyebrow">{s.category}</p>
             <h1>{s.title}</h1>
             <p>{s.description}</p>
-            {!serviceConfirmed(s) && (
-              <p className="notice">
-                Contenu préparatoire. Cette prestation n’est pas encore confirmée comme proposée par
-                l’entreprise.
-              </p>
+            {canRequestQuote() && serviceConfirmed(s) && (
+              <Link className="button" href={`/devis?prestation=${s.slug}`} data-track="clic_devis">
+                Préparer ma demande ↗
+              </Link>
             )}
-            <Link className="button" href={`/devis?prestation=${s.slug}`} data-track="clic_devis">
-              Préparer ma demande ↗
-            </Link>
           </div>
           <Photo name={s.image} alt={s.alt} priority />
         </section>
@@ -64,10 +60,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             </ol>
             <h2>Les points de vigilance</h2>
             <p>{s.safety}</p>
-            <p>
-              Le périmètre exact, le prix et les documents remis sont à préciser avant accord.
-              Aucune qualification, attestation ou disponibilité n’est annoncée sans confirmation.
-            </p>
+            <p>Le périmètre exact, le prix et les documents remis sont à préciser avant accord.</p>
             <h2>Vos questions</h2>
             <Faq items={s.faq} />
             <RelatedResources service={s.slug} />
@@ -78,9 +71,11 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <p>
               Indiquez votre commune et votre équipement pour faire confirmer la prise en charge.
             </p>
-            <Link href={`/devis?prestation=${s.slug}`} className="button" data-track="clic_devis">
-              Demander un devis ↗
-            </Link>
+            {canRequestQuote() && serviceConfirmed(s) && (
+              <Link href={`/devis?prestation=${s.slug}`} className="button" data-track="clic_devis">
+                Demander un devis ↗
+              </Link>
+            )}
             <Link href="/ramonage/aude">L’Aude, autour de Narbonne</Link>
             <Link href="/ramonage/pyrenees-orientales">
               Les Pyrénées-Orientales, autour de Perpignan

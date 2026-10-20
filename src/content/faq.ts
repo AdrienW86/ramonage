@@ -146,12 +146,12 @@ const groups: { category: Category; rows: Row[] }[] = [
       [
         'Le mot débistrage signifie-t-il une réparation du conduit ?',
         'Il ne faut pas présumer qu’un devis de nettoyage inclut une réparation. Faites décrire chaque opération proposée.',
-        'prix-debistrage',
-        ['prices'],
+        'ramonage-ou-debistrage',
+        ['prices', 'aqcBistre'],
       ],
       [
         'Le diagnostic peut-il faire l’objet d’un coût distinct ?',
-        'Demandez ses conditions tarifaires avant de le commander. Aucune gratuité de diagnostic n’est annoncée ici.',
+        'Demandez ses conditions tarifaires avant de le commander.',
         'prix-debistrage',
         ['prices'],
       ],
@@ -332,8 +332,8 @@ const groups: { category: Category; rows: Row[] }[] = [
     category: 'questions-pratiques',
     rows: [
       [
-        'Le site annonce-t-il un prix de ramonage garanti ?',
-        'Non. Aucun tarif de l’entreprise n’est confirmé ; le devis doit correspondre à l’installation.',
+        'Comment obtenir un prix adapté à mon installation ?',
+        'Le prix doit être précisé au devis selon le périmètre et les accès de l’installation.',
         'prix-ramonage',
         ['prices'],
       ],
@@ -345,7 +345,7 @@ const groups: { category: Category; rows: Row[] }[] = [
       ],
       [
         'Une demande de devis réserve-t-elle un rendez-vous ?',
-        'La demande sur ce site ne constitue ni commande ni réservation. Le périmètre et les conditions restent à confirmer.',
+        'Une demande de devis ne constitue pas en elle-même une réservation de rendez-vous. Le périmètre et les conditions restent à confirmer.',
         'prix-ramonage',
         ['prices'],
       ],

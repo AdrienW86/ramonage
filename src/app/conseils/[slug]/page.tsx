@@ -1,4 +1,6 @@
 ﻿import Link from 'next/link';
+import { communes, isLocalPublished } from '@/lib/geo';
+import { canRequestQuote } from '@/config/company';
 import { notFound } from 'next/navigation';
 import { Breadcrumbs, CTA, Faq, JsonLd, Photo } from '@/components/ui';
 import { GuideCard, formatDate } from '@/components/editorial';
@@ -8,7 +10,6 @@ import {
   visibleGuides,
   categoryBySlug,
   isGuidePublished,
-  isGuideValidated,
   articleSchema,
 } from '@/lib/editorial';
 import { visibleServices } from '@/content/services';
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       ...meta.openGraph,
       type: 'article',
-      images: [{ url: `/images/${g.image}.webp`, alt: `${g.title} — illustration IA` }],
+      images: [{ url: `/images/${g.image}.webp`, alt: g.imageAlt }],
       ...(g.datePublished ? { publishedTime: g.datePublished } : {}),
       ...(g.dateVerified ? { modifiedTime: g.dateVerified } : {}),
     },
@@ -61,34 +62,17 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <h1>{g.title}</h1>
             <p className="article-answer">{g.intro}</p>
           </div>
-          <Photo
-            name={g.image}
-            alt={`${g.title} — illustration générée par IA, pas une réalisation de l’entreprise`}
-            priority
-          />
+          <Photo name={g.image} alt={g.imageAlt} priority />
         </section>
         <div className="article-meta">
-          <span>
-            Auteur :{' '}
-            {g.author
-              ? `${g.author.name} · ${g.author.role}`
-              : 'non attribué — synthèse documentaire assistée par IA'}
-          </span>
-          <span>Publication : {g.datePublished ? formatDate(g.datePublished) : 'non publiée'}</span>
-          <span>
-            {g.dateVerified
-              ? `Vérification documentaire : ${formatDate(g.dateVerified)}`
-              : 'Vérification complète : en attente'}
-          </span>
+          {g.author && (
+            <span>
+              Auteur : {g.author.name} · {g.author.role}
+            </span>
+          )}
+          {g.datePublished && <span>Publié le {formatDate(g.datePublished)}</span>}
+          {g.dateVerified && <span>Vérification documentaire : {formatDate(g.dateVerified)}</span>}
         </div>
-        {!isGuidePublished(g) && (
-          <p className="notice">
-            {isGuideValidated(g)
-              ? 'Contenu documentaire vérifié, en attente de relecture, d’attribution et de publication.'
-              : 'Brouillon à compléter — aucune validation technique ou locale définitive.'}{' '}
-            {g.verificationNote}
-          </p>
-        )}
         <div className="article-layout">
           <article className="prose">
             <nav className="article-toc" aria-label="Sommaire de l’article">
@@ -101,7 +85,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
                 ))}
               </ol>
               <a href="#questions-article">Questions sur ce sujet</a>
-              <a href="#sources-article">Sources et limites de vérification</a>
+              <a href="#sources-article">Sources documentaires</a>
             </nav>
             {g.sections.map((s, i) => (
               <section key={s.title} id={`section-${i + 1}`}>
@@ -120,7 +104,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               </section>
             ))}
             <section className="practical-example">
-              <p className="eyebrow">EXEMPLE DE DÉMARCHE · AUCUN CHANTIER REVENDIQUÉ</p>
+              <p className="eyebrow">CAS PRATIQUE</p>
               <h2>{g.example.title}</h2>
               <p>{g.example.text}</p>
             </section>
@@ -162,27 +146,25 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             </section>
             <section id="sources-article" className="sources">
               <h2>Sources et vérification</h2>
-              <p>{g.verificationNote}</p>
+              {g.sourceKeys.includes('aqcBistre') && (
+                <p>
+                  La fiche de prévention de l’AQC apporte des recommandations techniques. Pour la
+                  fréquence réglementaire, référez-vous au Code de la santé publique et aux
+                  prescriptions applicables à votre adresse.
+                </p>
+              )}
+
               <ul>
-                {g.sourceKeys.map((k) => (
-                  <li key={k}>
-                    <a href={sources[k].url}>
-                      {sources[k].publisher} — {sources[k].title}
-                    </a>
-                    <span>
-                      Consultation tentée le {formatDate(sources[k].checkedAt)} ·{' '}
-                      {sources[k].access === 'full'
-                        ? 'Document consulté'
-                        : sources[k].access === 'partial'
-                          ? 'Extrait consulté, accès partiel'
-                          : 'Accès complet non obtenu'}
-                      .
-                    </span>
-                    <p>
-                      {sources[k].scope} {sources[k].limitation}
-                    </p>
-                  </li>
-                ))}
+                {g.sourceKeys
+                  .filter((k) => sources[k].access === 'full')
+                  .map((k) => (
+                    <li key={k}>
+                      <a href={sources[k].url}>
+                        {sources[k].publisher} — {sources[k].title}
+                      </a>
+                      <span>Consulté le {formatDate(sources[k].checkedAt)}</span>
+                    </li>
+                  ))}
               </ul>
             </section>
           </article>
@@ -190,15 +172,24 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
             <p className="eyebrow">VOTRE INSTALLATION</p>
             <h2>Du repère au besoin concret.</h2>
             <p>Un guide ne remplace pas l’examen de votre appareil et de son conduit.</p>
-            <Link className="button" href={href} data-track="clic_devis" data-article={g.slug}>
-              Préparer ma demande ↗
-            </Link>
+            {canRequestQuote() && (
+              <Link className="button" href={href} data-track="clic_devis" data-article={g.slug}>
+                Préparer ma demande ↗
+              </Link>
+            )}
             {services.map((s) => (
               <Link href={`/prestations/${s.slug}`} key={s.slug}>
                 {s.title}
               </Link>
             ))}
             <Link href="/questions-frequentes">Consulter les questions fréquentes</Link>
+            {communes
+              .filter((c) => ['66136', '11262'].includes(c.insee) && isLocalPublished(c))
+              .map((c) => (
+                <Link key={c.insee} href={`/ramonage/${c.slug}`}>
+                  {c.name}
+                </Link>
+              ))}
             <Link href="/ramonage/aude">Aude et Narbonne</Link>
             <Link href="/ramonage/pyrenees-orientales">Pyrénées-Orientales et Perpignan</Link>
           </aside>

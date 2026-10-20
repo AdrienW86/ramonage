@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { breadcrumbSchema } from '@/lib/seo';
 import type { Service } from '@/content/services';
-import { serviceConfirmed } from '@/content/services';
+import { canRequestQuote } from '@/config/company';
 
 export function JsonLd({ data }: { data: object | null }) {
   return data ? (
@@ -40,15 +40,24 @@ export function CTA({
   text?: string;
   href?: string;
 }) {
+  const enabled = canRequestQuote();
   return (
     <section className="cta">
       <div>
         <p className="eyebrow">LE BON GESTE COMMENCE ICI</p>
-        <h2>{label}</h2>
-        <p>{text}</p>
+        <h2>{enabled ? label : 'Les repères pour votre installation'}</h2>
+        <p>
+          {enabled
+            ? text
+            : 'Obligations, entretien et sécurité : retrouvez les réponses documentées dans les guides.'}
+        </p>
       </div>
-      <Link className="button cream" href={href} data-track="clic_devis">
-        Demander un devis <ArrowUpRight size={18} />
+      <Link
+        className="button cream"
+        href={enabled ? href : '/conseils'}
+        data-track={enabled ? 'clic_devis' : undefined}
+      >
+        {enabled ? 'Demander un devis' : 'Explorer les guides'} <ArrowUpRight size={18} />
       </Link>
     </section>
   );
@@ -126,7 +135,6 @@ export function ServiceCard({ service, index = 0 }: { service: Service; index?: 
         </div>
         <h3>{service.short}</h3>
         <p>{service.description}</p>
-        {!serviceConfirmed(service) && <span className="draft-tag">Prestation à confirmer</span>}
       </div>
     </Link>
   );

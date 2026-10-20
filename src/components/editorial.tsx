@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Search } from 'lucide-react';
 import { Photo } from './ui';
 import { categories, type Guide } from '@/content/guides';
-import { categoryBySlug, isGuideValidated, isGuidePublished } from '@/lib/editorial';
+import { categoryBySlug } from '@/lib/editorial';
 export const formatDate = (value: string) =>
   new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long', timeZone: 'Europe/Paris' }).format(
     new Date(`${value}T12:00:00Z`),
@@ -10,24 +10,13 @@ export const formatDate = (value: string) =>
 export function GuideCard({ guide }: { guide: Guide }) {
   return (
     <Link href={`/conseils/${guide.slug}`} className="guide-card">
-      <Photo
-        name={guide.image}
-        alt={`${categoryBySlug.get(guide.category)?.name} — illustration générée par IA`}
-        sizes="(max-width: 700px) 90vw, 30vw"
-      />
+      <Photo name={guide.image} alt={guide.imageAlt} sizes="(max-width: 700px) 90vw, 30vw" />
       <p className="eyebrow">{categoryBySlug.get(guide.category)?.name}</p>
       <h3>
         {guide.title}
         <ArrowUpRight size={19} />
       </h3>
       <p className="resource-description">{guide.intro}</p>
-      <span className="resource-status">
-        {isGuidePublished(guide)
-          ? 'Guide publié · sources vérifiées'
-          : isGuideValidated(guide)
-            ? 'Sources vérifiées · publication à approuver'
-            : 'En préparation · validation incomplète'}
-      </span>
     </Link>
   );
 }

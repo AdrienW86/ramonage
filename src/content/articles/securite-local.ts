@@ -5,7 +5,6 @@ export const safetyLocalGuides = [
     slug: 'conduit-encrasse',
     title: 'Comment reconnaître les signes d’un conduit à faire examiner ?',
     category: 'ramonage-entretien',
-    image: 'conduit',
     intent: 'Qualifier des signes sans diagnostic de bouchon.',
     intro:
       'Fumées inhabituelles, fonctionnement modifié ou dépôts signalés doivent être décrits à un professionnel. Aucun signe pris isolément ne permet d’établir l’état de la totalité du conduit. L’absence de symptôme ne dispense pas du ramonage.',
@@ -52,7 +51,6 @@ export const safetyLocalGuides = [
     slug: 'cheminee-refoule',
     title: 'Pourquoi ma cheminée refoule-t-elle de la fumée ?',
     category: 'cheminees-inserts',
-    image: 'cheminee',
     intent: 'Orienter un refoulement vers un examen plutôt qu’une recette.',
     intro:
       'Un refoulement a plusieurs causes possibles et ne se diagnostique pas à distance. Signalez le contexte et suspendez l’utilisation douteuse. Le ramonage peut être nécessaire sans constituer, à lui seul, la réponse à tous les problèmes d’évacuation.',
@@ -96,7 +94,6 @@ export const safetyLocalGuides = [
     slug: 'ameliorer-tirage',
     title: 'Comment faire vérifier le tirage d’une cheminée ?',
     category: 'cheminees-inserts',
-    image: 'inspection',
     intent: 'Préparer un diagnostic de tirage sans conseil de modification non fondé.',
     intro:
       'Un tirage jugé insuffisant ou excessif doit être évalué avec l’appareil et son conduit. Demandez un diagnostic adapté avant de changer un réglage, un accessoire ou une arrivée d’air. Un nombre universel de pascals ne serait pas pertinent sans le modèle et sa notice.',
@@ -140,7 +137,6 @@ export const safetyLocalGuides = [
     slug: 'prevenir-feu-cheminee',
     title: 'Comment prévenir un feu de cheminée et réagir après un incident ?',
     category: 'securite',
-    image: 'cheminee',
     intent: 'Délimiter prévention, urgence et remise en service.',
     intro:
       'Respectez les consignes de l’appareil et son calendrier d’entretien. Si un feu de cheminée est suspecté, éloignez-vous du danger et appelez le 18 ou le 112. Après un sinistre, le refroidissement ne suffit pas à autoriser une nouvelle utilisation.',
@@ -187,7 +183,6 @@ export const safetyLocalGuides = [
     slug: 'securite-et-monoxyde-de-carbone',
     title: 'Monoxyde de carbone : quels signes et quels réflexes ?',
     category: 'securite',
-    image: 'poele-bois',
     intent: 'Reconnaître une suspicion et suivre les gestes officiels sans retard.',
     featured: true,
     intro:
@@ -243,7 +238,6 @@ export const safetyLocalGuides = [
       slug: d.slug,
       title: `Ramonage dans ${d.code === '11' ? 'l’Aude' : 'les Pyrénées-Orientales'} : comment vérifier la réglementation locale ?`,
       category: 'reglementation',
-      image: 'local',
       intent: `Vérifier les prescriptions locales ${d.code} sans extrapoler une règle départementale.`,
       status: 'brouillon',
       verificationNote:

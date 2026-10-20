@@ -2109,3 +2109,10 @@ footer {
     gap: 35px;
   }
 }
+.quote-checklist {
+  max-width: 850px;
+  padding-bottom: 90px;
+}
+.quote-checklist .aside-card {
+  position: static;
+}

@@ -14,7 +14,7 @@ export async function generateMetadata({
   return {
     ...metadata(
       'Zones et communes : Aude et Pyrénées-Orientales',
-      'Recherchez une commune dans le référentiel officiel de l’Aude et des Pyrénées-Orientales. La desserte est à confirmer avant intervention.',
+      'Recherchez une commune dans le référentiel officiel de l’Aude et des Pyrénées-Orientales. Communes et codes postaux du répertoire géographique.',
       '/zones-intervention',
     ),
     ...(filtered ? { robots: { index: false, follow: true } } : {}),
@@ -42,12 +42,12 @@ export default async function Page({
           <h1>
             Votre commune.
             <br />
-            <em>Votre demande.</em>
+            <em>Vos repères.</em>
           </h1>
           <p>
             {communes.length} communes de l’Aude et des Pyrénées-Orientales sont référencées. Les
-            données géographiques ne constituent pas une confirmation de desserte. Vérifiez la prise
-            en charge dans votre demande.
+            données géographiques ne constituent pas une confirmation de desserte. La présence d’une
+            commune ne constitue pas une offre d’intervention.
           </p>
           <CommuneSearch compact />
         </div>
@@ -101,7 +101,7 @@ export default async function Page({
                 href={
                   isLocalPublished(c)
                     ? `/ramonage/${c.slug}`
-                    : `/devis?commune=${encodeURIComponent(c.name)}&codePostal=${c.postalCodes[0] || ''}`
+                    : `/zones-intervention?q=${encodeURIComponent(c.name)}`
                 }
                 key={c.insee}
               >
@@ -109,7 +109,7 @@ export default async function Page({
                   {c.name}
                   <small>
                     {c.postalCodes.join(', ')} ·{' '}
-                    {c.coverageConfirmed ? 'Desserte confirmée' : 'À confirmer'}
+                    {c.coverageConfirmed ? 'Desserte confirmée' : 'Commune référencée'}
                   </small>
                 </span>
                 <span aria-hidden="true">↗</span>

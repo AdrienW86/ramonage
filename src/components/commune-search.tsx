@@ -52,9 +52,7 @@ export function CommuneSearch({ compact = false }: { compact?: boolean }) {
         if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false);
       }}
     >
-      <label htmlFor={id}>
-        {compact ? 'Rechercher une commune' : 'Votre commune est-elle desservie ?'}
-      </label>
+      <label htmlFor={id}>{compact ? 'Rechercher une commune' : 'Retrouver votre commune'}</label>
       <div className="search-input">
         <MapPin size={21} />
         <input
@@ -93,7 +91,7 @@ export function CommuneSearch({ compact = false }: { compact?: boolean }) {
         />
         <Search size={20} />
       </div>
-      <p className="search-hint">Aude (11) & Pyrénées-Orientales (66) · Desserte à confirmer</p>
+      <p className="search-hint">Aude (11) & Pyrénées-Orientales (66) · Répertoire géographique</p>
       {show && (
         <div
           className="search-results"
@@ -123,14 +121,14 @@ export function CommuneSearch({ compact = false }: { compact?: boolean }) {
                 href={
                   c.published
                     ? `/ramonage/${c.slug}`
-                    : `/devis?commune=${encodeURIComponent(c.name)}&codePostal=${c.postalCodes[0] || ''}`
+                    : `/zones-intervention?q=${encodeURIComponent(c.name)}`
                 }
               >
                 <span>
                   <strong>{c.name}</strong>
                   <small>
                     {c.postalCodes.join(', ')} ·{' '}
-                    {c.coverageConfirmed ? 'Desserte confirmée' : 'Desserte à confirmer'}
+                    {c.coverageConfirmed ? 'Desserte confirmée' : 'Commune référencée'}
                   </small>
                 </span>
                 <ArrowUpRight size={18} />

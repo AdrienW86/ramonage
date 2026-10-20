@@ -27,9 +27,6 @@ export function RelatedResources({
           {list.map((g) => (
             <li key={g.slug}>
               <Link href={`/conseils/${g.slug}`}>{g.title} ↗</Link>
-              {!['valide', 'publie'].includes(g.status) && (
-                <small> — préparation, validation incomplète</small>
-              )}
             </li>
           ))}
         </ul>

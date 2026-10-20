@@ -9,7 +9,11 @@ export const isGuideValidated = (g: Guide) =>
   ['valide', 'publie'].includes(g.status) &&
   !!g.dateVerified &&
   g.sourceKeys.length > 0 &&
-  g.sourceKeys.every((k) => sources[k]?.access === 'full');
+  [
+    ...g.sourceKeys,
+    ...g.sections.flatMap((s) => s.sourceKeys ?? []),
+    ...g.faq.flatMap((f) => f.sourceKeys),
+  ].every((k) => sources[k]?.access === 'full');
 export const isGuidePublished = (g: Guide) =>
   g.status === 'publie' &&
   isGuideValidated(g) &&
@@ -18,11 +22,11 @@ export const isGuidePublished = (g: Guide) =>
   !!g.datePublished &&
   g.datePublished <= new Date().toISOString().slice(0, 10);
 export function visibleGuides() {
-  return guides.filter((g) => isPreview() || isGuidePublished(g));
+  return guides.filter((g) => (isPreview() && isGuideValidated(g)) || isGuidePublished(g));
 }
 export function accessibleGuide(slug: string) {
   const g = guideBySlug.get(slug);
-  return g && (isPreview() || isGuidePublished(g)) ? g : undefined;
+  return g && ((isPreview() && isGuideValidated(g)) || isGuidePublished(g)) ? g : undefined;
 }
 export function searchGuides(query: string, category?: Category) {
   const normalize = (s: string) =>

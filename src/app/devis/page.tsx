@@ -42,19 +42,21 @@ export default async function Page({
           <em>votre besoin.</em>
         </h1>
         <p>
-          Quelques informations pour comprendre votre demande. La prestation, la desserte et les
-          conditions d’intervention seront confirmées avant tout engagement.
+          Rassemblez les informations utiles pour décrire votre installation et comparer les
+          propositions d’un professionnel.
         </p>
       </div>
-      <div className="quote-layout">
-        <QuoteForm
-          sourceArticle={safeArticleSlug(q.article)}
-          service={visibleServices().some((s) => s.slug === q.prestation) ? q.prestation : ''}
-          commune={typeof q.commune === 'string' ? q.commune.slice(0, 100) : ''}
-          postalCode={typeof q.codePostal === 'string' ? q.codePostal.slice(0, 5) : ''}
-          enabled={enabled}
-          options={visibleServices().map((s) => ({ slug: s.slug, title: s.title }))}
-        />
+      <div className={enabled ? 'quote-layout' : 'quote-checklist'}>
+        {enabled && (
+          <QuoteForm
+            sourceArticle={safeArticleSlug(q.article)}
+            service={visibleServices().some((s) => s.slug === q.prestation) ? q.prestation : ''}
+            commune={typeof q.commune === 'string' ? q.commune.slice(0, 100) : ''}
+            postalCode={typeof q.codePostal === 'string' ? q.codePostal.slice(0, 5) : ''}
+            enabled={enabled}
+            options={visibleServices().map((s) => ({ slug: s.slug, title: s.title }))}
+          />
+        )}
         <aside className="aside-card">
           <p className="eyebrow">POUR UNE DEMANDE PRÉCISE</p>
           <h2>Les informations utiles.</h2>

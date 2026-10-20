@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { company, isPublicReady } from '@/config/company';
+import { company, isPublicReady, siteTitle } from '@/config/company';
 export function metadata(title: string, description: string, path: string): Metadata {
   return {
     title,
@@ -12,7 +12,7 @@ export function metadata(title: string, description: string, path: string): Meta
       url: path,
       type: 'website',
       locale: 'fr_FR',
-      siteName: company.name,
+      siteName: siteTitle,
       images: [
         {
           url: '/images/hero.webp',

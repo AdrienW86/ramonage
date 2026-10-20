@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: Promise<{ categorie: st
             ))}
           </div>
           {list.length === 0 && (
-            <p>Les guides de cette catégorie attendent leur validation et leur publication.</p>
+            <p>Consultez les autres thématiques pour poursuivre votre lecture.</p>
           )}
         </section>
       </div>

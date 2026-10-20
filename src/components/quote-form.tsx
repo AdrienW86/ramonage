@@ -96,6 +96,7 @@ export function QuoteForm({
       )}
     </div>
   );
+  if (!enabled) return null;
   return (
     <form
       className="quote-form"
@@ -103,12 +104,6 @@ export function QuoteForm({
       noValidate
       aria-label="Demande de devis"
     >
-      {!enabled && (
-        <p className="notice">
-          Formulaire en préparation. Vous pouvez découvrir les champs ; l’envoi est désactivé tant
-          que les coordonnées et le service email ne sont pas configurés.
-        </p>
-      )}
       {success ? (
         <div tabIndex={-1} ref={feedbackRef} role="status" className="form-feedback">
           {feedback}

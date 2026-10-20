@@ -4,7 +4,7 @@ import { metadata } from '@/lib/seo';
 export const generateMetadata = () =>
   metadata(
     'Notre approche de l’entretien des conduits',
-    'Comprendre l’installation, définir le périmètre et expliquer les observations : découvrez l’approche préparée pour votre entretien.',
+    'Comprendre l’installation, définir le périmètre et expliquer les observations : retrouvez les points essentiels de l’entretien.',
     '/a-propos',
   );
 export default function Page() {
@@ -49,17 +49,17 @@ export default function Page() {
                 'Les observations et les limites expliquées',
               ]}
             />
-            <h2>Une entreprise en cours de présentation</h2>
+            <h2>Des repères pour comprendre votre installation</h2>
             <p>
-              L’identité commerciale, les informations administratives, les qualifications et les
-              assurances seront ajoutées après vérification. Aucun historique, avis client ou
-              chantier n’est inventé. Les photographies sont des illustrations générées par IA.
+              Les guides présentent les obligations nationales, les gestes d’entretien et les
+              situations qui nécessitent un avis professionnel. Les illustrations générées par IA
+              accompagnent la lecture et ne constituent pas des photographies de chantier.
             </p>
-            <h2>Deux territoires prioritaires</h2>
+            <h2>L’Aude et les Pyrénées-Orientales</h2>
             <p>
-              L’Aude et les Pyrénées-Orientales constituent le périmètre de préparation du site.
-              Narbonne et Perpignan sont les pôles prioritaires. La couverture précise reste à
-              valider commune par commune.
+              Le répertoire géographique rassemble les communes et leurs codes postaux, autour de
+              Narbonne et Perpignan. Une présence dans ce répertoire ne constitue pas une offre
+              d’intervention.
             </p>
             <p>
               <Link href="/zones-intervention">Retrouver votre commune</Link>
@@ -68,11 +68,11 @@ export default function Page() {
           <aside className="aside-card">
             <h2>Une demande concrète.</h2>
             <p>
-              Décrivez votre appareil et votre commune. La prise en charge sera confirmée avant un
-              rendez-vous.
+              Identifiez votre appareil, son combustible et son historique pour échanger avec un
+              professionnel.
             </p>
-            <Link href="/devis" className="button" data-track="clic_devis">
-              Préparer ma demande ↗
+            <Link href="/conseils" className="button">
+              Consulter les guides ↗
             </Link>
           </aside>
         </div>

@@ -5,7 +5,6 @@ export const applianceGuides = [
     slug: 'entretien-poele-bois',
     title: 'Comment entretenir un poêle à bois au quotidien ?',
     category: 'poeles',
-    image: 'poele-bois',
     intent: 'Délimiter les tâches utilisateur et les rendez-vous professionnels.',
     intro:
       'Séparez les gestes autorisés par la notice, l’entretien professionnel de l’appareil et le ramonage du conduit. Un foyer visuellement propre ne prouve pas que son parcours de fumées est entretenu.',
@@ -53,7 +52,6 @@ export const applianceGuides = [
     slug: 'entretien-poele-granules',
     title: 'Comment entretenir un poêle à granulés ?',
     category: 'poeles',
-    image: 'poele-granules',
     intent: 'Organiser l’entretien selon la notice sans toucher aux sécurités.',
     intro:
       'Le nettoyage utilisateur d’un poêle à granulés ne remplace ni sa maintenance professionnelle ni le ramonage. La notice du modèle est la référence pour les gestes, les conditions d’arrêt et les tâches accessibles.',
@@ -101,7 +99,6 @@ export const applianceGuides = [
     slug: 'ramonage-poele-granules',
     title: 'Quand ramoner un poêle à granulés ?',
     category: 'poeles',
-    image: 'poele-granules',
     intent: 'Appliquer la fréquence du conduit sans confondre maintenance et compteur.',
     intro:
       'Un poêle à granulés n’est pas dispensé de ramonage. Pour un appareil individuel, le socle national est au moins tous les douze mois, avec éventuelles prescriptions locales plus fréquentes. Une alerte de maintenance ne constitue pas, à elle seule, le calendrier réglementaire.',
@@ -144,7 +141,6 @@ export const applianceGuides = [
     slug: 'vitre-poele-noircit',
     title: 'Pourquoi la vitre de mon poêle noircit-elle ?',
     category: 'poeles',
-    image: 'poele-bois',
     intent: 'Qualifier un symptôme sans diagnostic automatique.',
     intro:
       'Le noircissement peut accompagner une combustion dégradée, mais ne permet pas d’identifier seul une cause. Notez quand il apparaît et faites examiner le fonctionnement si le phénomène devient inhabituel ; une vitre nettoyée ne résout pas nécessairement le problème.',
@@ -188,7 +184,6 @@ export const applianceGuides = [
     slug: 'choisir-bois',
     title: 'Quel bois choisir pour son appareil de chauffage ?',
     category: 'poeles',
-    image: 'bois-stockage',
     intent: 'Vérifier combustible, information du vendeur et compatibilité.',
     intro:
       'Choisissez d’abord un combustible autorisé par la notice de votre appareil. L’ADEME recommande du bois sec et exclut les bois traités ou souillés. Ni l’aspect d’une bûche ni une appellation commerciale ne remplacent les informations sur le produit.',
@@ -232,7 +227,6 @@ export const applianceGuides = [
     slug: 'bois-humide',
     title: 'Peut-on utiliser du bois humide ? Que faire d’une livraison douteuse ?',
     category: 'poeles',
-    image: 'bois-stockage',
     intent: 'Gérer un combustible douteux sans mesure ou délai inventé.',
     intro:
       'Ne cherchez pas à compenser un combustible inadapté en modifiant les réglages de l’appareil. L’ADEME explique que le bois humide dégrade l’efficacité et augmente la pollution. Vérifiez les informations du lot et les consignes de stockage avant utilisation.',
@@ -275,7 +269,6 @@ export const applianceGuides = [
     slug: 'entretien-insert',
     title: 'Comment préparer l’entretien d’un insert ou d’un foyer fermé ?',
     category: 'cheminees-inserts',
-    image: 'insert',
     intent: 'Prendre en compte l’accès sans démontage risqué.',
     intro:
       'Pour un insert ou un foyer fermé, distinguez l’appareil, son habillage, le raccordement et le conduit. Le ramonage ne doit pas être confondu avec le nettoyage de la vitre ou une dépose d’éléments. Préparez la notice et faites confirmer les accès.',
