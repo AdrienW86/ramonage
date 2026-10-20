@@ -9,6 +9,7 @@ const links = [
   ['Les communes', '/zones-intervention'],
   ['Notre approche', '/a-propos'],
   ['Conseils', '/conseils'],
+  ['Contact', '/contact'],
 ];
 export function Header({
   name,
@@ -77,10 +78,10 @@ export function Header({
         </nav>
         <Link
           className="button small header-quote"
-          href={quoteEnabled ? '/devis' : '/conseils'}
+          href={quoteEnabled ? '/devis' : '/contact'}
           data-track={quoteEnabled ? 'clic_devis' : undefined}
         >
-          {quoteEnabled ? 'Demander un devis' : 'Les guides'} <ArrowUpRight size={16} />
+          {quoteEnabled ? 'Demander un devis' : 'Nous contacter'} <ArrowUpRight size={16} />
         </Link>
         <button
           ref={toggle}
