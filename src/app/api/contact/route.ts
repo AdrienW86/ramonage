@@ -1,7 +1,18 @@
 import { Resend } from 'resend';
-import { company, isPublicReady } from '@/config/company';
+import { company } from '@/config/company';
 import { contactSchema } from '@/lib/contact-schema';
 import { rateLimit } from '@/lib/rate-limit';
+
+// Limitation locale de secours : n'est pas partagée entre les instances Vercel.
+const recent = new Map<string, { count: number; expires: number }>();
+function localLimit(key: string) {
+  const now = Date.now();
+  if (recent.size > 2000) { for (const [k, v] of recent) if (v.expires < now) recent.delete(k); }
+  const old = recent.get(key);
+  if (!old || old.expires < now) { recent.set(key, { count: 1, expires: now + 15 * 60_000 }); return true; }
+  old.count++;
+  return old.count <= 5;
+}
 
 export const runtime = 'nodejs';
 const fail = (message: string, status: number) => Response.json({ ok: false, message }, { status, headers: { 'Cache-Control': 'no-store' } });
@@ -12,7 +23,7 @@ export async function POST(request: Request) {
   if (request.headers.get('origin') !== new URL(company.url).origin) return fail('Origine non autorisée.', 403);
   if (!request.headers.get('content-type')?.includes('application/json')) return fail('Format non pris en charge.', 415);
   if (Number(request.headers.get('content-length') || 0) > 12000) return fail('Message trop volumineux.', 413);
-  if (!isPublicReady() || !company.commercial.formEnabled || !process.env.RESEND_API_KEY || !process.env.RESEND_FROM || !company.quoteRecipient || !process.env.RATE_LIMIT_REST_URL || !process.env.RATE_LIMIT_REST_TOKEN) return fail('Le formulaire n’est pas encore disponible.', 503);
+  if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM || !company.quoteRecipient) return fail('Le formulaire n’est pas encore disponible.', 503);
   try {
     const reader = request.body?.getReader();
     if (!reader) return fail('Message vide.', 400);
@@ -32,7 +43,8 @@ export async function POST(request: Request) {
     const elapsed = Date.now() - data.startedAt;
     if (elapsed < 2500 || elapsed > 86400000) return fail('Actualisez le formulaire et réessayez.', 400);
     const ip = ((process.env.VERCEL ? request.headers.get('x-vercel-forwarded-for') : request.headers.get('x-forwarded-for')) || 'unknown').split(',')[0].trim();
-    if (!await rateLimit(ip)) return fail('Trop de demandes. Réessayez dans 15 minutes.', 429);
+    const allowed = process.env.RATE_LIMIT_REST_URL && process.env.RATE_LIMIT_REST_TOKEN ? await rateLimit(ip) : localLimit(ip);
+    if (!allowed) return fail('Trop de demandes. Réessayez dans 15 minutes.', 429);
     const text = [
       'Nouvelle demande de contact — ' + company.name,
       'Sujet : ' + subjects[data.subject],
