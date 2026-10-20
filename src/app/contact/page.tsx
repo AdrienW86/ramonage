@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Breadcrumbs, CTA } from '@/components/ui';
-import { company } from '@/config/company';
+import { company, isPublicReady } from '@/config/company';
+import { ContactForm } from '@/components/contact-form';
 import { metadata } from '@/lib/seo';
 export const generateMetadata = () =>
   metadata(
@@ -21,8 +22,7 @@ export default function Page() {
             <em>Un besoin mieux défini.</em>
           </h1>
           <p>
-            Identifiez votre appareil et rassemblez les documents d’entretien pour expliquer votre
-            besoin à un professionnel.
+            Décrivez votre besoin dans le formulaire ci-dessous, ou contactez-nous par téléphone.
           </p>
         </div>
         <div className="contact-options">
@@ -43,6 +43,19 @@ export default function Page() {
             <Link href="/questions-frequentes">Consulter les questions fréquentes ↗</Link>
           </div>
         </div>
+        <section className="quote-layout" style={{ paddingBottom: 80 }} aria-label="Nous écrire">
+          <div>
+            <p className="eyebrow">UN CONTACT SIMPLE ET PERSONNALISÉ</p>
+            <h2 style={{ fontSize: 36, marginBottom: 25 }}>Écrivez-nous.</h2>
+            <ContactForm enabled={isPublicReady() && company.commercial.formEnabled && !!process.env.RESEND_API_KEY && !!process.env.RESEND_FROM && !!company.quoteRecipient && !!process.env.RATE_LIMIT_REST_URL && !!process.env.RATE_LIMIT_REST_TOKEN} />
+          </div>
+          <aside className="aside-card">
+            <p className="eyebrow">À VOTRE ÉCOUTE</p>
+            <h2>Chaque installation est différente.</h2>
+            <p>Indiquez le type d’appareil, la commune et les détails utiles. Vous pouvez également nous joindre par téléphone.</p>
+            {company.phone && <a href={'tel:' + company.phone.replace(/[^+\d]/g, '')}>{company.phone}</a>}
+          </aside>
+        </section>
         <section className="prose" style={{ paddingBottom: 70 }}>
           <h2>Votre installation, en quelques mots</h2>
           <p>
