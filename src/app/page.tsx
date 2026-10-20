@@ -55,8 +55,8 @@ export default function Home() {
             <br className="desktop-break" /> pour profiter de l’essentiel.
           </p>
           <div className="hero-actions">
-            <Link href={canRequestQuote() ? '/devis' : '/conseils'} className="button">
-              {canRequestQuote() ? 'Demander un devis' : 'Explorer les guides'}{' '}
+            <Link href={canRequestQuote() ? '/devis' : '/contact'} className="button">
+              {canRequestQuote() ? 'Demander un devis' : 'Nous contacter'}{' '}
               <ArrowUpRight size={19} />
             </Link>
             <Link href="/prestations" className="hero-secondary">
